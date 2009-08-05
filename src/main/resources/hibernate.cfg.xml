@@ -1,0 +1,42 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="org.palaciego.cipion.model.Address"/>
+        <mapping class="org.palaciego.cipion.model.Breed"/>
+        <mapping class="org.palaciego.cipion.model.Calification"/>
+        <mapping class="org.palaciego.cipion.model.Category"/>
+        <mapping class="org.palaciego.cipion.model.Club"/>
+        <mapping class="org.palaciego.cipion.model.Country"/>
+        <mapping class="org.palaciego.cipion.model.Dog"/>
+        <mapping class="org.palaciego.cipion.model.Event"/>
+        <mapping class="org.palaciego.cipion.model.Eventtype"/>
+        <mapping class="org.palaciego.cipion.model.Grade"/>
+        <mapping class="org.palaciego.cipion.model.Guide"/>
+        <mapping class="org.palaciego.cipion.model.Judge"/>
+        <mapping class="org.palaciego.cipion.model.Participants"/>
+        <mapping class="org.palaciego.cipion.model.Rangecalification"/>
+        <mapping class="org.palaciego.cipion.model.Role"/>
+        <mapping class="org.palaciego.cipion.model.Round"/>
+        <mapping class="org.palaciego.cipion.model.Roundresults"/>
+        <mapping class="org.palaciego.cipion.model.Settings"/>
+        <mapping class="org.palaciego.cipion.model.Subcategory"/>
+        <mapping class="org.palaciego.cipion.model.User"/>
+        <mapping class="org.palaciego.cipion.model.Breed"/>
+        <mapping class="org.palaciego.cipion.model.Calification"/>
+        <mapping class="org.palaciego.cipion.model.Category"/>
+        <mapping class="org.palaciego.cipion.model.Dog"/>
+        <mapping class="org.palaciego.cipion.model.Event"/>
+        <mapping class="org.palaciego.cipion.model.Eventtype"/>
+        <mapping class="org.palaciego.cipion.model.Grade"/>
+        <mapping class="org.palaciego.cipion.model.Guide"/>
+        <mapping class="org.palaciego.cipion.model.Judge"/>
+        <mapping class="org.palaciego.cipion.model.Participants"/>
+        <mapping class="org.palaciego.cipion.model.Rangecalification"/>
+        <mapping class="org.palaciego.cipion.model.Roundresults"/>
+        <mapping class="org.palaciego.cipion.model.Settings"/>
+        <mapping class="org.palaciego.cipion.model.Subcategory"/>
+        <mapping class="org.palaciego.cipion.model.Round"/>
+    </session-factory>
+</hibernate-configuration>

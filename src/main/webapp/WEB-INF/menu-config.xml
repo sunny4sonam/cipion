@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform.html" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users.html">
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html"/>
+            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html"/>
+            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>
+            <Item name="FileUpload" title="menu.selectFile" page="/fileupload.html"/>
+            <Item name="FlushCache" title="menu.flushCache" page="/admin/flushCache.html"/>
+            <Item name="Clickstream" title="menu.clickstream" page="/admin/clickstreams.jsp"/>
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER"/>
+        
+        
+        
+        
+        <!--Club-START-->
+        <Menu name="ClubMenu" title="clubList.title" page="/clubs.html"/>
+        <!--Club-END-->
+        <!--Country-START-->
+        <Menu name="CountryMenu" title="countryList.title" page="/countries.html"/>
+        <!--Country-END-->
+        <!--Breed-START-->
+        <Menu name="BreedMenu" title="breedList.title" page="/breeds.html"/>
+        <!--Breed-END-->
+        <!--Calification-START-->
+        <Menu name="CalificationMenu" title="calificationList.title" page="/califications.html"/>
+        <!--Calification-END-->
+        <!--Category-START-->
+        <Menu name="CategoryMenu" title="categoryList.title" page="/categories.html"/>
+        <!--Category-END-->
+        <!--Dog-START-->
+        <Menu name="DogMenu" title="dogList.title" page="/dogs.html"/>
+        <!--Dog-END-->
+        <!--Event-START-->
+        <Menu name="EventMenu" title="eventList.title" page="/events.html"/>
+        <!--Event-END-->
+        <!--Eventtype-START-->
+        <Menu name="EventtypeMenu" title="eventtypeList.title" page="/eventtypes.html"/>
+        <!--Eventtype-END-->
+        <!--Grade-START-->
+        <Menu name="GradeMenu" title="gradeList.title" page="/grades.html"/>
+        <!--Grade-END-->
+        <!--Guide-START-->
+        <Menu name="GuideMenu" title="guideList.title" page="/guides.html"/>
+        <!--Guide-END-->
+        <!--Judge-START-->
+        <Menu name="JudgeMenu" title="judgeList.title" page="/judges.html"/>
+        <!--Judge-END-->
+        <!--Participants-START-->
+        <Menu name="ParticipantsMenu" title="participantsList.title" page="/participantss.html"/>
+        <!--Participants-END-->
+        <!--Rangecalification-START-->
+        <Menu name="RangecalificationMenu" title="rangecalificationList.title" page="/rangecalifications.html"/>
+        <!--Rangecalification-END-->
+        <!--Roundresults-START-->
+        <Menu name="RoundresultsMenu" title="roundresultsList.title" page="/roundresultss.html"/>
+        <!--Roundresults-END-->
+        <!--Settings-START-->
+        <Menu name="SettingsMenu" title="settingsList.title" page="/settingss.html"/>
+        <!--Settings-END-->
+        <!--Subcategory-START-->
+        <Menu name="SubcategoryMenu" title="subcategoryList.title" page="/subcategories.html"/>
+        <!--Subcategory-END-->
+        <!--Round-START-->
+        <Menu name="RoundMenu" title="roundList.title" page="/rounds.html"/>
+        <!--Round-END-->
+    </Menus>
+</MenuConfig>

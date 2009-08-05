@@ -1,0 +1,34 @@
+.navhorizontal {
+	behavior: url("csshover.htc");
+}
+* html .navhorizontal li ul {
+	background:none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/submenu_bg.png', sizingmethod='scale');
+}
+* html .navhorizontal .btm-bg {
+	background:none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/submenu_bottom.png', sizingmethod='none');
+}
+* html .navhorizontal li .sub {
+	background:none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/submenu_top.png', sizingmethod='crop');
+}
+* html .content {
+	background:none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/content_bg.png', sizingmethod='scale');
+}
+* html .content-bottom {
+	background: none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/content_bottom.png', sizingmethod='none');
+}
+* html .navhorizontal-left {
+	background: none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/nav_left.png', sizingmethod='crop');
+}
+* html .navhorizontal-right {
+	background: none;
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/nav/nav_right.png', sizingmethod='crop');
+}
+.navhorizontal ul {
+	width: 688px;
+}

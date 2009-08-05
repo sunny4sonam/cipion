@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-lazy-init="true">
+
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">        
+                    dataAccessFailure
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+
+    <bean id="fileUploadController" class="org.palaciego.cipion.webapp.controller.FileUploadController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="formView" value="uploadForm"/>
+        <property name="successView" value="uploadDisplay"/>
+    </bean>
+
+    <bean id="passwordHintController" class="org.palaciego.cipion.webapp.controller.PasswordHintController">
+        <property name="userManager" ref="userManager"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+    </bean>
+
+    <bean id="reloadController" class="org.palaciego.cipion.webapp.controller.ReloadController"/>
+
+    <bean id="signupController" class="org.palaciego.cipion.webapp.controller.SignupController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="signup"/>
+        <property name="successView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+    <bean id="userController" class="org.palaciego.cipion.webapp.controller.UserController">
+        <property name="userManager" ref="userManager"/>
+    </bean>
+
+    <bean id="userFormController" class="org.palaciego.cipion.webapp.controller.UserFormController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="userForm"/>
+        <property name="successView" value="redirect:users.html"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+    
+	<!--  GetImage-START -->
+		<!-- Controller -->
+		    <bean id="getImageController" class="org.palaciego.cipion.webapp.controller.GetImageController">
+		        <property name="noImagePath" value="src/main/webapp/images/nopicture.jpg"/>
+		    </bean>
+	<!--GetImage-END-->
+    <!--Club-START-->
+		<!-- clubController -->
+		    <bean id="clubController" class="org.palaciego.cipion.webapp.controller.ClubController">
+		        <property name="clubManager" ref="clubManager"/>
+		    </bean>
+
+		<!-- club Custom PropertyEditor -->
+			<bean id="clubBaseObjectExample" class="org.palaciego.cipion.model.Club"></bean>
+			<bean id="clubPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="clubManager"/>
+		        <property name="baseObjectExample" ref="clubBaseObjectExample" />
+		    </bean>
+
+		<!-- clubFormController -->
+			<bean id="clubFormController" class="org.palaciego.cipion.webapp.controller.ClubFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:clubs.html"/>
+		        <property name="clubManager" ref="clubManager"/>
+				<property name="countryManager" ref="countryManager"/>
+				<property name="countryPropEdit" ref="countryPropEdit"/>
+		    </bean>
+	<!--Club-END-->
+
+    <!--Country-START-->
+		<!-- countryController -->
+		    <bean id="countryController" class="org.palaciego.cipion.webapp.controller.CountryController">
+		        <property name="countryManager" ref="countryManager"/>
+		    </bean>
+
+		<!-- country Custom PropertyEditor -->
+			<bean id="countryBaseObjectExample" class="org.palaciego.cipion.model.Country"></bean>
+			<bean id="countryPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="countryManager"/>
+		        <property name="baseObjectExample" ref="countryBaseObjectExample" />
+		    </bean>
+
+		<!-- countryFormController -->
+			<bean id="countryFormController" class="org.palaciego.cipion.webapp.controller.CountryFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:countrys.html"/>
+		        <property name="cancelView" value="redirect:countryform.html?edit=true"/>
+		        <property name="countryManager" ref="countryManager"/>
+		    </bean>
+	<!--Country-END-->
+
+    <!--Breed-START-->
+		<!-- breedController -->
+		    <bean id="breedController" class="org.palaciego.cipion.webapp.controller.BreedController">
+		        <property name="breedManager" ref="breedManager"/>
+		    </bean>
+
+		<!-- breed Custom PropertyEditor -->
+			<bean id="breedBaseObjectExample" class="org.palaciego.cipion.model.Breed"></bean>
+			<bean id="breedPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="breedManager"/>
+		        <property name="baseObjectExample" ref="breedBaseObjectExample" />
+		    </bean>
+
+		<!-- breedFormController -->
+			<bean id="breedFormController" class="org.palaciego.cipion.webapp.controller.BreedFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:breeds.html"/>
+		        <!--  <property name="failureView" value="breedform.html?edit=true"/> -->
+		        <property name="breedManager" ref="breedManager"/>
+		    </bean>
+	<!--Breed-END-->
+
+    <!--Calification-START-->
+		<!-- calificationController -->
+		    <bean id="calificationController" class="org.palaciego.cipion.webapp.controller.CalificationController">
+		        <property name="calificationManager" ref="calificationManager"/>
+		    </bean>
+
+		<!-- calification Custom PropertyEditor -->
+			<bean id="calificationBaseObjectExample" class="org.palaciego.cipion.model.Calification"></bean>
+			<bean id="calificationPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="calificationManager"/>
+		        <property name="baseObjectExample" ref="calificationBaseObjectExample" />
+		    </bean>
+
+		<!-- calificationFormController -->
+			<bean id="calificationFormController" class="org.palaciego.cipion.webapp.controller.CalificationFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:califications.html"/>
+		        <property name="calificationManager" ref="calificationManager"/>
+		    </bean>
+	<!--Calification-END-->
+
+    <!--Category-START-->
+		<!-- categoryController -->
+		    <bean id="categoryController" class="org.palaciego.cipion.webapp.controller.CategoryController">
+		        <property name="categoryManager" ref="categoryManager"/>
+		    </bean>
+
+		<!-- category Custom PropertyEditor -->
+			<bean id="categoryBaseObjectExample" class="org.palaciego.cipion.model.Category"></bean>
+			<bean id="categoryPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="categoryManager"/>
+		        <property name="baseObjectExample" ref="categoryBaseObjectExample" />
+		    </bean>
+
+		<!-- categoryFormController -->
+			<bean id="categoryFormController" class="org.palaciego.cipion.webapp.controller.CategoryFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:categorys.html"/>
+		        <property name="categoryManager" ref="categoryManager"/>
+		    </bean>
+	<!--Category-END-->
+
+    <!--Dog-START-->
+		<!-- dogController -->
+		    <bean id="dogController" class="org.palaciego.cipion.webapp.controller.DogController">
+		        <property name="dogManager" ref="dogManager"/>
+		    </bean>
+
+		<!-- dog Custom PropertyEditor -->
+			<bean id="dogBaseObjectExample" class="org.palaciego.cipion.model.Dog"></bean>
+			<bean id="dogPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="dogManager"/>
+		        <property name="baseObjectExample" ref="dogBaseObjectExample" />
+		    </bean>
+
+		<!-- dogFormController -->
+			<bean id="dogFormController" class="org.palaciego.cipion.webapp.controller.DogFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:dogs.html"/>
+		        <property name="dogManager" ref="dogManager"/>
+				<property name="breedManager" ref="breedManager"/>
+				<property name="breedPropEdit" ref="breedPropEdit"/>
+				<property name="categoryManager" ref="categoryManager"/>
+				<property name="categoryPropEdit" ref="categoryPropEdit"/>
+				<property name="gradeManager" ref="gradeManager"/>
+				<property name="gradePropEdit" ref="gradePropEdit"/>
+				<property name="guideManager" ref="guideManager"/>
+				<property name="guidePropEdit" ref="guidePropEdit"/>
+				<property name="subcategoryManager" ref="subcategoryManager"/>
+				<property name="subcategoryPropEdit" ref="subcategoryPropEdit"/>
+		    </bean>
+	<!--Dog-END-->
+
+    <!--Event-START-->
+		<!-- eventController -->
+		    <bean id="eventController" class="org.palaciego.cipion.webapp.controller.EventController">
+		        <property name="eventManager" ref="eventManager"/>
+		    </bean>
+
+		<!-- event Custom PropertyEditor -->
+			<bean id="eventBaseObjectExample" class="org.palaciego.cipion.model.Event"></bean>
+			<bean id="eventPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="eventManager"/>
+		        <property name="baseObjectExample" ref="eventBaseObjectExample" />
+		    </bean>
+
+		<!-- eventFormController -->
+			<bean id="eventFormController" class="org.palaciego.cipion.webapp.controller.EventFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:events.html"/>
+		        <property name="eventManager" ref="eventManager"/>
+		        <property name="roundManager" ref="roundManager"/>
+		        <property name="gradeManager" ref="gradeManager"/>
+		        <property name="categoryManager" ref="categoryManager"/>
+				<property name="eventtypeManager" ref="eventtypeManager"/>
+				<property name="eventtypePropEdit" ref="eventtypePropEdit"/>
+				<property name="judgeManager" ref="judgeManager"/>
+				<property name="judgePropEdit" ref="judgePropEdit"/>
+		    </bean>
+	<!--Event-END-->
+
+    <!--Eventtype-START-->
+		<!-- eventtypeController -->
+		    <bean id="eventtypeController" class="org.palaciego.cipion.webapp.controller.EventtypeController">
+		        <property name="eventtypeManager" ref="eventtypeManager"/>
+		    </bean>
+
+		<!-- eventtype Custom PropertyEditor -->
+			<bean id="eventtypeBaseObjectExample" class="org.palaciego.cipion.model.Eventtype"></bean>
+			<bean id="eventtypePropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="eventtypeManager"/>
+		        <property name="baseObjectExample" ref="eventtypeBaseObjectExample" />
+		    </bean>
+
+		<!-- eventtypeFormController -->
+			<bean id="eventtypeFormController" class="org.palaciego.cipion.webapp.controller.EventtypeFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:eventtypes.html"/>
+		        <property name="eventtypeManager" ref="eventtypeManager"/>
+		    </bean>
+	<!--Eventtype-END-->
+
+    <!--Grade-START-->
+		<!-- gradeController -->
+		    <bean id="gradeController" class="org.palaciego.cipion.webapp.controller.GradeController">
+		        <property name="gradeManager" ref="gradeManager"/>
+		    </bean>
+
+		<!-- grade Custom PropertyEditor -->
+			<bean id="gradeBaseObjectExample" class="org.palaciego.cipion.model.Grade"></bean>
+			<bean id="gradePropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="gradeManager"/>
+		        <property name="baseObjectExample" ref="gradeBaseObjectExample" />
+		    </bean>
+
+		<!-- gradeFormController -->
+			<bean id="gradeFormController" class="org.palaciego.cipion.webapp.controller.GradeFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:grades.html"/>
+		        <property name="gradeManager" ref="gradeManager"/>
+		    </bean>
+	<!--Grade-END-->
+
+    <!--Guide-START-->
+		<!-- guideController -->
+		    <bean id="guideController" class="org.palaciego.cipion.webapp.controller.GuideController">
+		        <property name="guideManager" ref="guideManager"/>
+		    </bean>
+
+		<!-- guide Custom PropertyEditor -->
+			<bean id="guideBaseObjectExample" class="org.palaciego.cipion.model.Guide"></bean>
+			<bean id="guidePropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="guideManager"/>
+		        <property name="baseObjectExample" ref="guideBaseObjectExample" />
+		    </bean>
+
+		<!-- guideFormController -->
+			<bean id="guideFormController" class="org.palaciego.cipion.webapp.controller.GuideFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:guides.html"/>
+		        <property name="guideManager" ref="guideManager"/>
+				<property name="clubManager" ref="clubManager"/>
+				<property name="clubPropEdit" ref="clubPropEdit"/>
+		    </bean>
+	<!--Guide-END-->
+
+    <!--Judge-START-->
+		<!-- judgeController -->
+		    <bean id="judgeController" class="org.palaciego.cipion.webapp.controller.JudgeController">
+		        <property name="judgeManager" ref="judgeManager"/>
+		    </bean>
+
+		<!-- judge Custom PropertyEditor -->
+			<bean id="judgeBaseObjectExample" class="org.palaciego.cipion.model.Judge"></bean>
+			<bean id="judgePropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="judgeManager"/>
+		        <property name="baseObjectExample" ref="judgeBaseObjectExample" />
+		    </bean>
+
+		<!-- judgeFormController -->
+			<bean id="judgeFormController" class="org.palaciego.cipion.webapp.controller.JudgeFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:judges.html"/>
+		        <property name="judgeManager" ref="judgeManager"/>
+		    </bean>
+	<!--Judge-END-->
+
+    <!--Participants-START-->
+		<!-- participantsController -->
+		    <bean id="participantsController" class="org.palaciego.cipion.webapp.controller.ParticipantsController">
+		        <property name="participantsManager" ref="participantsManager"/>
+		        <property name="clubManager" ref="clubManager"/>
+		        <property name="guideManager" ref="guideManager"/>
+		        <property name="dogManager" ref="dogManager"/>
+		        <property name="eventManager" ref="eventManager"/>
+		        <property name="roundresultsManager" ref="roundresultsManager"/>
+		        <property name="categoryManager" ref="categoryManager"/>
+		        <property name="gradeManager" ref="gradeManager"/>
+		    </bean>
+
+		<!-- participants Custom PropertyEditor -->
+			<bean id="participantsBaseObjectExample" class="org.palaciego.cipion.model.Participants"></bean>
+			<bean id="participantsPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="participantsManager"/>
+		        <property name="baseObjectExample" ref="participantsBaseObjectExample" />
+		    </bean>
+
+		<!-- participantsFormController -->
+			<bean id="participantsFormController" class="org.palaciego.cipion.webapp.controller.ParticipantsFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:participantss.html"/>
+		        <property name="participantsManager" ref="participantsManager"/>
+				<property name="dogManager" ref="dogManager"/>
+				<property name="dogPropEdit" ref="dogPropEdit"/>
+				<property name="eventManager" ref="eventManager"/>
+				<property name="eventPropEdit" ref="eventPropEdit"/>
+		    </bean>
+	<!--Participants-END-->
+
+    <!--Rangecalification-START-->
+		<!-- rangecalificationController -->
+		    <bean id="rangecalificationController" class="org.palaciego.cipion.webapp.controller.RangecalificationController">
+		        <property name="rangecalificationManager" ref="rangecalificationManager"/>
+		    </bean>
+
+		<!-- rangecalification Custom PropertyEditor -->
+			<bean id="rangecalificationBaseObjectExample" class="org.palaciego.cipion.model.Rangecalification"></bean>
+			<bean id="rangecalificationPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="rangecalificationManager"/>
+		        <property name="baseObjectExample" ref="rangecalificationBaseObjectExample" />
+		    </bean>
+
+		<!-- rangecalificationFormController -->
+			<bean id="rangecalificationFormController" class="org.palaciego.cipion.webapp.controller.RangecalificationFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:rangecalifications.html"/>
+		        <property name="rangecalificationManager" ref="rangecalificationManager"/>
+				<property name="calificationManager" ref="calificationManager"/>
+				<property name="calificationPropEdit" ref="calificationPropEdit"/>
+		    </bean>
+	<!--Rangecalification-END-->
+
+    <!--Roundresults-START-->
+		<!-- roundresultsController -->
+		    <bean id="roundresultsController" class="org.palaciego.cipion.webapp.controller.RoundresultsController">
+		        <property name="roundresultsManager" ref="roundresultsManager"/>
+		        <property name="gradeManager" ref="gradeManager"/>
+		        <property name="categoryManager" ref="categoryManager"/>
+		        <property name="participantsManager" ref="participantsManager" />
+		        <property name="roundManager" ref="roundManager" />
+		        <property name="eventManager" ref="eventManager" />
+		    </bean>
+
+		<!-- resultsdetailController -->
+		    <bean id="resultsdetailController" class="org.palaciego.cipion.webapp.controller.ResultsdetailController">
+		        <property name="roundresultsManager" ref="roundresultsManager"/>
+		    </bean>
+
+		<!-- roundresults Custom PropertyEditor -->
+			<bean id="roundresultsBaseObjectExample" class="org.palaciego.cipion.model.Roundresults"></bean>
+			<bean id="roundresultsPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="roundresultsManager"/>
+		        <property name="baseObjectExample" ref="roundresultsBaseObjectExample" />
+		    </bean>
+
+		<!-- roundresultsFormController -->
+			<bean id="roundresultsFormController" class="org.palaciego.cipion.webapp.controller.RoundresultsFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:roundresultss.html"/>
+		        <property name="roundresultsManager" ref="roundresultsManager"/>
+				<property name="participantsManager" ref="participantsManager"/>
+				<property name="participantsPropEdit" ref="participantsPropEdit"/>
+				<property name="roundManager" ref="roundManager"/>
+				<property name="roundPropEdit" ref="roundPropEdit"/>
+		    </bean>
+	<!--Roundresults-END-->
+
+    <!--Settings-START-->
+		<!-- settingsController -->
+		    <bean id="settingsController" class="org.palaciego.cipion.webapp.controller.SettingsController">
+		        <property name="settingsManager" ref="settingsManager"/>
+		    </bean>
+
+		<!-- settings Custom PropertyEditor -->
+			<bean id="settingsBaseObjectExample" class="org.palaciego.cipion.model.Settings"></bean>
+			<bean id="settingsPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="settingsManager"/>
+		        <property name="baseObjectExample" ref="settingsBaseObjectExample" />
+		    </bean>
+
+		<!-- settingsFormController -->
+			<bean id="settingsFormController" class="org.palaciego.cipion.webapp.controller.SettingsFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:settingss.html"/>
+		        <property name="settingsManager" ref="settingsManager"/>
+				<property name="countryManager" ref="countryManager"/>
+				<property name="countryPropEdit" ref="countryPropEdit"/>
+				<property name="eventtypeManager" ref="eventtypeManager"/>
+				<property name="eventtypePropEdit" ref="eventtypePropEdit"/>
+		    </bean>
+	<!--Settings-END-->
+
+    <!--Subcategory-START-->
+		<!-- subcategoryController -->
+		    <bean id="subcategoryController" class="org.palaciego.cipion.webapp.controller.SubcategoryController">
+		        <property name="subcategoryManager" ref="subcategoryManager"/>
+		    </bean>
+
+		<!-- subcategory Custom PropertyEditor -->
+			<bean id="subcategoryBaseObjectExample" class="org.palaciego.cipion.model.Subcategory"></bean>
+			<bean id="subcategoryPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="subcategoryManager"/>
+		        <property name="baseObjectExample" ref="subcategoryBaseObjectExample" />
+		    </bean>
+
+		<!-- subcategoryFormController -->
+			<bean id="subcategoryFormController" class="org.palaciego.cipion.webapp.controller.SubcategoryFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:subcategorys.html"/>
+		        <property name="subcategoryManager" ref="subcategoryManager"/>
+		    </bean>
+	<!--Subcategory-END-->
+
+    <!--Round-START-->
+		<!-- roundController -->
+		    <bean id="roundController" class="org.palaciego.cipion.webapp.controller.RoundController">
+		        <property name="roundManager" ref="roundManager"/>
+		    </bean>
+
+		<!-- round Custom PropertyEditor -->
+			<bean id="roundBaseObjectExample" class="org.palaciego.cipion.model.Round"></bean>
+			<bean id="roundPropEdit" class="org.palaciego.cipion.model.GenericPropertyEditor">
+		        <property name="manager" ref="roundManager"/>
+		        <property name="baseObjectExample" ref="roundBaseObjectExample" />
+		    </bean>
+
+		<!-- roundFormController -->
+			<bean id="roundFormController" class="org.palaciego.cipion.webapp.controller.RoundFormController">
+		        <property name="validator" ref="beanValidator"/>
+		        <property name="successView" value="redirect:rounds.html"/>
+		        <property name="roundManager" ref="roundManager"/>
+				<property name="eventManager" ref="eventManager"/>
+				<property name="eventPropEdit" ref="eventPropEdit"/>
+		    </bean>
+	<!--Round-END-->
+
+    <!-- Add additional controller beans here -->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="209715200"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="ApplicationResources"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>
+                /admin/activeUsers.html=filenameController
+                /admin/flushCache.html=filenameController
+                /admin/reload.html=reloadController
+                /admin/users.html=userController
+                /mainMenu.html=filenameController
+                /passwordHint.html=passwordHintController
+            </value>
+        </property>
+        <property name="order" value="0"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="1"/>
+    </bean>
+
+    <!-- View Resolver for JSPs -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>

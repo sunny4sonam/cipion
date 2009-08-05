@@ -1,0 +1,860 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */
+
+/* SITE SPECIFIC LAYOUT */
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E6F2F3 url(images/background.gif) top center repeat-y;
+        text-align: center;
+    }
+    div#page {
+        width: 800px;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+    }
+    
+    /* HEADER */
+        div#header {
+            margin: 0 0 5em 0;
+            padding: 0px 0 0px 0px;
+            text-align: left;
+            height: 185px; /* needed by IE 7 */
+        }
+        div#switchLocale {
+			height:40px;
+			padding:0;
+			float:right;
+			width:150px;
+			z-index:1;            
+			
+			margin-right:10px;
+			margin-top:10px;
+			text-align:right;
+        }
+            
+        div#branding {
+			background:#FFFFFF url(images/background_top.gif) repeat-x scroll left top;
+			float:left;
+			margin:0;
+			padding:0 0 0 0;
+			text-align:left;
+			width:100%;
+        }
+		div#appcipionlogo {
+        	background: #FFFFFF url(images/appcipion.gif) no-repeat;
+        	width: 206px;
+        	height: 61px;
+            margin: 0;
+            padding: 0px 0 0px 0px;
+            text-align: left;
+           	left: 30px;
+           	top: 0 px;
+           	float:left;
+           	margin:0 0 0 20px;
+		}
+		div#headerimg {
+			background:#FFFFFF url(images/headerimg.jpg) no-repeat scroll 5px 50%;
+			float:left;
+			height:173px;
+			width:800px;
+		}
+        div#search {
+            float: right;
+            width: 49%;
+            margin: 0;
+            padding: 40px 40px 0 0;
+
+            text-align: right;
+        }
+    /* END HEADER */
+    
+    /* CONTENT */
+        div#content {
+        }
+            body#error #content {
+                margin-top: 20px;
+            }
+            
+            div#listcontent {
+            	float:left;
+            	width:540px;
+            }
+            
+        /* NAVvertical*/
+            div#navseparator {
+                padding-left: 225px;
+            }
+            #navseparator h3.navseparator{
+				background:transparent url(images/menuseparator.gif) no-repeat scroll 0 0;
+				height:382px;
+				position:absolute;
+				width:2px;            
+            }
+            div#navvertical {
+				background:transparent url(images/menubackground.jpg) no-repeat scroll 0 0;
+				float:left;
+				padding-left:15px;
+				width:203px;
+            }
+
+			#lbasicdata h3.basicdata {
+				background:transparent url(images/downarrow.gif) no-repeat scroll 0 0;
+				font-family:Trebuchet MS,Lucida Sans Unicode,Arial,sans-serif;
+				font-size:20px;
+				font-weight:bold;
+				color:#394C51;
+				height:26px;
+				margin:0px 0 5px 0px;
+				width:203px;
+			}
+			#levents h3.events {
+				background:transparent url(images/downarrow.gif) no-repeat scroll 0 0;
+				font-family:Trebuchet MS,Lucida Sans Unicode,Arial,sans-serif;
+				font-size:20px;
+				font-weight:bold;
+				color:#394C51;
+				height:26px;
+				margin:0px 0 5px 0px;
+				width:203px;
+			}
+
+			.subnavmenu-wrapper {
+				float: left;
+				height: 31px;
+			}
+			.subnavmenu-left {
+				background:transparent url(images/submenuborder.png) repeat-x scroll left top;
+				float: left;
+				width: 1px;
+				height: 31px;
+			}
+			.subnavmenu-right {
+				background: url(images/submenuborder.png) no-repeat top right;
+				float: left;
+				width: 1px;
+				height: 31px;
+			}
+			.subnavmenu {
+				background:#FFFFFF url(images/submenubg.png) repeat-x scroll 0 0;
+				float:left;
+				height:31px;
+				width:523px;	
+				padding-left:15px;		
+			}
+			div#listDetailTitle
+			{
+				float:left;
+				font-family:"Lucida Grande","Lucida Sans Unicode",Verdana,Arial,Helvetica,sans-serif;
+				font-size:14px;
+				font-weight:bold;
+				padding:20px 0;
+				text-decoration:underline;
+				width:550px;
+			}
+			
+		/* EVENT SUBMENU */
+		
+		div#eventsubmenu
+		{
+			height:67px;
+			width:523px;
+			float:left;	
+			cursor:pointer;
+		}
+
+		.eventsubmenuiconselected, .eventsubmenuiconselected:hover
+		{
+			float: left;
+			width:100px;
+			height:57px;
+			background:white;
+			padding:5px;
+			background:#EBF4FB;
+			border:2px solid #B7DDF2;
+			cursor:default;
+		}
+		
+		.eventsubmenuicon
+		{
+			float: left;
+			width:100px;
+			height:57px;
+			background:white;
+			padding:5px;
+		}
+
+		.eventsubmenuicon:hover
+		{
+			background:#EBF4FB;
+			border:2px solid #B7DDF2;
+		}
+
+		.addParticipant
+		{
+		}
+		
+		div#addParticipantbutton
+		{
+			float:left;
+			margin-left:auto;
+			margin-right:auto;
+			text-align:center;
+			width:500px;
+		}
+
+		#stylized #addParticipantbutton input
+		{
+			float:none;
+			width:150px;
+			cursor:pointer;
+		}
+
+		div#eventsubmenuparticipants:hover
+		{
+			background-color:#EBF4FB;	
+		}
+		
+		div#eventsubmenuparticipants
+		{
+			float: left;
+			background:transparent url(images/participantes.png) no-repeat scroll center center;
+			width:100px;
+			height:47px;
+		}
+
+		div#eventsubmenurounds:hover
+		{
+			background-color:#EBF4FB;	
+		}
+		
+		div#eventsubmenurounds
+		{
+			float: left;
+			background:transparent url(images/mangas.png) no-repeat scroll center center;
+			width:100px;
+			height:47px;
+		}
+
+		div#eventsubmenureports:hover
+		{
+			background-color:#EBF4FB;	
+		}
+		
+		div#eventsubmenureports
+		{
+			float: left;
+			background:transparent url(images/reports.png) no-repeat scroll center center;
+			width:100px;
+			height:47px;
+		}
+		
+		#stylized #listcontent input
+		{
+			width:20px;
+			margin:0px;
+			padding:0px;
+		}
+
+
+		div#eventsubmenuevent
+		{
+			float: left;
+			background:transparent url(images/torneo.png) no-repeat scroll center center;
+			width:100px;
+			height:47px;
+		}
+
+		div#eventsubmenuevent:hover
+		{
+			background-color:#EBF4FB;	
+		}
+
+		.eventsubmenuseparator
+		{
+			float:left;
+			width:10px;
+			height:57px;
+		}
+
+		.eventsubmenuicontext
+		{
+			float: left;
+			width:100%;
+			height:15px;
+			font-family:verdana,arial,helvetica,sans-serif;
+			font-weight:bold;
+			text-align:center;
+		}
+		
+		/* divs de torneos */
+		div#waydata
+		{
+			float:left;
+			width:520px;
+			height:40px;
+		}
+
+		.roundresultssave
+		{
+				background: url(images/document-save.png) no-repeat right 5px;
+				float:left;
+				width:32px;
+				height:100%;
+				cursor:pointer;
+		}
+		
+		div#startorderbutton
+		{
+				background: transparent url(images/order2.png) no-repeat center 0px;
+				float:left;
+				width:100%;
+				height:48px;
+				cursor:pointer;
+		}
+
+		div#startorderbutton:hover
+		{
+				background: #B7DDF2 url(images/order3.png) no-repeat center 0px;
+		}
+
+		.roundresultsnone
+		{
+				float:left;
+				width:0px;
+				height:100%;
+				cursor:pointer;
+		}
+				
+		.roundresultstrm
+		{
+			float:left;
+			width:110px;
+			height:40px;
+		}
+		
+		.roundresultstrmtext
+		{
+			float:left;
+			width:100%;
+			height:15px;
+			font-weight:bold;
+			text-align:center;
+		}
+		
+		.roundresultssep
+		{
+			float:left;
+			width:10px;
+			height:100%;
+		}	
+		div#waydata input
+		{
+			float:left;
+			width:100%;
+			height:15px;
+			padding:0px;
+			margin:0px;
+			text-align:center;
+		}
+		
+		/*---------------  */
+		
+		/* END EVENT SUBMENU */	
+			
+			
+        /* MAIN */
+            div#main {
+            	float: right;
+            	width: 70%;
+                padding-left: 15px;
+            }
+                div#main form ul li {
+                    list-style-type: none;
+                    margin-left: 0;
+                }
+                
+            form#loginForm {
+            	margin:55px 10px 10px 10px;
+            }
+            
+            div#login
+            {
+            	float:left;
+            	width:100%;
+            }
+            
+            div#login ul
+            {
+            	float:left;
+            	margin:0px;
+            }
+            
+        /* END MAIN */
+        
+        /* SUB */
+            div#sub h2 {
+                margin-bottom: 5px;
+            }
+            
+            div#sub ul li {
+                list-style-type: none;
+                padding-bottom: 10px;
+            }
+                div#sub p.line {
+                    border-top: 1px dotted #ccc;
+                    margin: 15px 0;
+                }
+            
+        /* END SUB */
+        
+        /* EDITS */
+        input#subnavfilter
+        {
+			background:white none repeat scroll 0 0;
+			border:medium double #888888;
+			color:#888888;
+			float:right;
+			margin-right:14px;
+			margin-top:2px;
+			width:100px;
+        }
+        
+        /* END EDITS*/
+        
+        /* BUTTONS */
+        
+        	.buttonSeparator
+        	{
+        		width:15px;
+        		height:30px;
+        		float:left;
+        	}
+        
+        	a#addButton
+        	{
+				background: url(images/buttonadd.png) no-repeat right 5px;
+				width:43px;
+				height:30px;
+				float: left;
+				filter:alpha(opacity=50);
+				-moz-opacity:0.5;
+				-khtml-opacity: 0.5;
+				opacity: 0.5;
+        	}
+
+        	a#addButton:hover
+        	{
+				background: url(images/buttonadd.png) no-repeat top right;
+				filter:alpha(opacity=90);
+				-moz-opacity:0.9;
+				-khtml-opacity: 0.9;
+				opacity: 0.9;
+        	}
+        	a#doneButton
+        	{
+				background: url(images/buttondone.png) no-repeat right 5px;
+				width:43px;
+				height:30px;
+				float: left;
+				filter:alpha(opacity=50);
+				-moz-opacity:0.5;
+				-khtml-opacity: 0.5;
+				opacity: 0.5;
+        	}
+
+        	a#doneButton:hover
+        	{
+				background: url(images/buttondone.png) no-repeat top right;
+				filter:alpha(opacity=90);
+				-moz-opacity:0.9;
+				-khtml-opacity: 0.9;
+				opacity: 0.9;
+        	}
+        	a#filterButton
+        	{
+				background: url(images/buttonfilter2.png) no-repeat right 5px;
+				width:43px;
+				height:30px;
+				float: right;
+				filter:alpha(opacity=50);
+				-moz-opacity:0.5;
+				-khtml-opacity: 0.5;
+				opacity: 0.5;
+        	}
+
+        	a#filterButton:hover
+        	{
+				background: url(images/buttonfilter2.png) no-repeat top right;
+				filter:alpha(opacity=90);
+				-moz-opacity:0.9;
+				-khtml-opacity: 0.9;
+				opacity: 0.9;
+        	}
+        	a#deleteButton
+        	{
+				background: url(images/buttondelete.png) no-repeat right 5px;
+				width:43px;
+				height:30px;
+				float: left;
+				filter:alpha(opacity=50);
+				-moz-opacity:0.5;
+				-khtml-opacity: 0.5;
+				opacity: 0.5;
+        	}
+
+        	a#deleteButton:hover
+        	{
+				background: url(images/buttondelete.png) no-repeat top right;
+				filter:alpha(opacity=90);
+				-moz-opacity:0.9;
+				-khtml-opacity: 0.9;
+				opacity: 0.9;
+        	}        
+        	a#backButton
+        	{
+				background: url(images/buttonback.png) no-repeat right 5px;
+				width:43px;
+				height:30px;
+				float: left;
+				filter:alpha(opacity=50);
+				-moz-opacity:0.5;
+				-khtml-opacity: 0.5;
+				opacity: 0.5;
+        	}
+
+        	a#backButton:hover
+        	{
+				background: url(images/buttonback.png) no-repeat top right;
+				filter:alpha(opacity=90);
+				-moz-opacity:0.9;
+				-khtml-opacity: 0.9;
+				opacity: 0.9;
+        	}          
+        	a#editButton
+        	{
+				background: url(images/buttonedit.png) no-repeat right top;
+				width:40px;
+				height:50px;
+				float: right;
+        	}
+        	
+        	span#editsmall
+        	{
+				color:blue;
+				display:block;
+				font-size:11px;
+				font-weight:normal;
+				text-align:center;
+				width:40px;
+				margin-top:40px;
+				text-decoration:none;
+        	}
+
+        	span#editsmall:hover
+        	{
+				color:blue;
+        	}
+
+        	a#editButton:hover
+        	{
+				background: url(images/buttonedithover.png) no-repeat right top;
+        	}          	  
+        	
+        	.wikipediacolumn
+        	{
+        		background: url(images/buttonwikipediagoogle.png) no-repeat scroll center center;
+        		height:17px;
+        		cursor:pointer;
+        	}	
+
+        	
+        	.editresults
+        	{
+        		background: url(images/pencil16.png) no-repeat scroll center center;
+        		height:17px;
+        		cursor:pointer;
+        	}	
+        	
+        	.deletecolumn
+        	{
+        		background: url(images/listdelete.png) no-repeat scroll center center;
+        		height:17px;
+        		cursor:pointer;
+        	}
+        /* END BUTTONS */
+
+/* REPORTS */
+	div#resultsreport1
+	{
+		float: left;
+		background:transparent url(images/reports.png) no-repeat scroll center center;
+		width:100%;
+		height:47px;
+	}
+	.resultsreporttext
+	{
+		float:left;
+		font-family:verdana,arial,helvetica,sans-serif;
+		font-weight:bold;
+		height:15px;
+		text-align:center;
+		width:100%;
+	}
+	.resultreport
+	{
+		float:left;
+		width:150px;
+		height:100px;
+		cursor:pointer;
+		padding:15px;
+		background:transparent;
+	}
+
+	.resultreport:hover
+	{
+		border-color:#666666;
+		border:dotted;
+		border-width:1px;
+		background:#FBFDFF;
+	}
+
+
+/* END REPORTS */
+        
+div#collapsiblePanelHead
+{
+	width:530px;
+	height:40px;
+	float:left;
+}
+
+div#collapsablePanelHeadText
+{
+	float:left;
+	width:500;
+	text-align:left;
+	padding:3px 0px 0px 15px;
+	font-weight:bold;
+	width:480px;
+	height:20px;
+	background:transparent;
+	cursor:pointer;
+}
+
+div#collapsablePanelHeadText:hover
+{
+	background:#FFFFFF;
+}
+
+
+div#collapsiblePanel
+{
+	float:left;
+}
+
+ul#aboutul
+{
+	text-align:left;
+}
+
+#stylized .aboutp
+{
+	text-align:left;
+	color:#666666;
+	font-size:11px;
+	margin-bottom:20px;
+	padding-bottom:10px;
+	font-family:verdana,arial,helvetica,sans-serif;
+	line-height:1.4em;
+	margin:0 0 1.5em;
+	padding:0;	
+	border:none;
+}
+
+.collapsablePanelIconPlus
+{
+	width:30px;
+	height:20px;
+	float:left;
+	background:transparent url(images/buttondown.png) no-repeat scroll right center; 
+}
+
+.collapsablePanelIconMinus
+{
+	width:30px;
+	height:20px;
+	float:left;
+	background:transparent url(images/buttonup.png) no-repeat scroll right center; 
+}
+
+div#collapsiblePanelContent
+{
+	float:left;
+	display:none;
+	overflow:hidden;
+	height:0px;
+}
+        
+    /* END CONTENT */
+    
+    /* FOOTER */
+        div#footer {
+            color: #444;
+            padding: 0;
+            text-align: left;
+            font-size: 0.9em;
+            float:left;
+        }
+
+            div#footer div#divider {
+                    margin: 0 0 4px 0;
+                    border-top: 1px solid #ccc;
+                    width:540px;
+            }
+
+            div#footer div#divider div {
+                    margin: 1px 0 0 0;
+                    border-top: 6px solid #E7F2F4;
+            }
+
+            div#footer .left {
+                    float: left;
+					width:420px;
+					height:20px;
+            }
+
+            div#footer .right {
+                    float: right;
+                    width:110px;
+					height:20px;
+            }
+            
+            div#footerjas
+            {
+            	float:left;
+            	width:100%;
+            	height:40px;
+            }
+            
+            div#audreyyleyla
+            {
+				background:transparent url(images/audreyyleyla.jpg) no-repeat scroll center top; 
+				width:508px;
+				float:left;
+				height:300px;            
+            }
+            
+    /* END FOOTER */
+/* END LAYOUT */
+   float: right;
+            }
+    /* END FOOTER */
+/* END LAYOUT */
+
+            }
+    /* END FOOTER */
+/* END LAYOUT */
+OOTER */
+/* END LAYOUT */
+   float: right;
+            }
+    /* END FOOTER */
+/* END LAYOUT */
+LAYOUT */
+   float: right;
+            }
+    /* END FOOTER */
+/* END LAYOUT */
+
+
+
+
+ }
+    /* END FOOTER */
+/* END LAYOUT */
+
+
+
+
+ */
+/* END LAYOUT */
+
+
+
+
+ND LAYOUT */
+
+
+
+
+
+T */
+
+
+
+
+D LAYOUT */
+
+
+
+
+
+T */
+
+
+
+
+
+
+
+
+T */
+
+
+
+
+
+
+T */
+
+
+
+
+D LAYOUT */
+
+
+
+
+
+T */
+
+
+
+
+
+
+
+
+T */
+
+
+
+
+ */
+
+
+
+
+
+
+
+
+T */
+
+
+
+
+
+
+

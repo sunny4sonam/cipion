@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-lazy-init="true">
+
+    <!-- Add new DAOs here -->
+
+    
+
+    
+
+    
+
+    
+
+    <!--ClubManager-START-->
+    <bean id="clubManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Club"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--ClubManager-END-->
+
+    <!--CountryManager-START-->
+    <bean id="countryManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Country"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--CountryManager-END-->
+
+    <!--BreedManager-START-->
+    <bean id="breedManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Breed"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--BreedManager-END-->
+
+    <!--CalificationManager-START-->
+    <bean id="calificationManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Calification"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--CalificationManager-END-->
+
+    <!--CategoryManager-START-->
+    <bean id="categoryManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Category"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--CategoryManager-END-->
+
+    <!--DogManager-START-->
+    <bean id="dogManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Dog"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--DogManager-END-->
+
+    <!--EventManager-START-->
+    <bean id="eventManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Event"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--EventManager-END-->
+
+    <!--EventtypeManager-START-->
+    <bean id="eventtypeManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Eventtype"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--EventtypeManager-END-->
+
+    <!--GradeManager-START-->
+    <bean id="gradeManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Grade"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--GradeManager-END-->
+
+    <!--GuideManager-START-->
+    <bean id="guideManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Guide"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--GuideManager-END-->
+
+    <!--JudgeManager-START-->
+    <bean id="judgeManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Judge"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--JudgeManager-END-->
+
+    <!--ParticipantsManager-START-->
+    <bean id="participantsManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Participants"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--ParticipantsManager-END-->
+
+    <!--RangecalificationManager-START-->
+    <bean id="rangecalificationManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Rangecalification"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--RangecalificationManager-END-->
+    
+    <!--RoundresultsManager-START-->
+    <bean id="roundresultsManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Roundresults"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--RoundresultsManager-END-->
+
+    <!--SettingsManager-START-->
+    <bean id="settingsManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Settings"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--SettingsManager-END-->
+
+    <!--SubcategoryManager-START-->
+    <bean id="subcategoryManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Subcategory"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--SubcategoryManager-END-->
+
+    <!--RoundManager-START-->
+    <bean id="roundManager" class="org.palaciego.cipion.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="org.palaciego.cipion.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="org.palaciego.cipion.model.Round"/>
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--RoundManager-END-->
+
+    <!-- Add new Managers here -->
+</beans>
