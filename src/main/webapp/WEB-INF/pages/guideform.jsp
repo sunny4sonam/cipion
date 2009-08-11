@@ -134,7 +134,7 @@
 	</div>
 	<c:if test="${not empty guide.sid}">
     	<div id="listcontent">
-			<a id="addButton" href="/dogform.html?edit=add&guidesid=${guide.sid}" title="<fmt:message key="button.add"/>">
+			<a id="addButton" href="dogform.html?edit=add&guidesid=${guide.sid}" title="<fmt:message key="button.add"/>">
 			</a>
     		<div id="listDetailTitle"><fmt:message key="guide.listdetailtitle"/></div>
     

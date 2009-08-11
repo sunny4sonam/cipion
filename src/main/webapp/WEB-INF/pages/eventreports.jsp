@@ -7,7 +7,7 @@
 </head>
 
 
-<form id="formulario" action="/participantss.html" method="GET">
+<form id="formulario" action="participantss.html" method="GET">
     <div class="subnavmenu-wrapper">
 		<div class="subnavmenu-left">
 		</div>

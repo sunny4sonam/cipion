@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<!--[if lt IE 7]>
-			<link rel="stylesheet" type="text/css" href="/include/ie6.css" media="screen"/>
+			<link rel="stylesheet" type="text/css" href="include/ie6.css" media="screen"/>
 		<![endif]-->
         <%@ include file="/common/meta.jsp" %>
         <title><decorator:title/> | <fmt:message key="webapp.name"/></title>

@@ -7,7 +7,7 @@
 </head>
 
 
-<form id="formulario" action="/participantss.html" method="GET">
+<form id="formulario" action="participantss.html" method="GET">
     <div class="subnavmenu-wrapper">
 		<div class="subnavmenu-left">
 		</div>
@@ -214,7 +214,7 @@
 
 	function startorderfunction()
 	{
-		if(window.confirm("¿Seguro que desea establecer el orden de salida de los participantes?"))
+		if(window.confirm("&iquest;Seguro que desea establecer el orden de salida de los participantes?"))
 		{
     		document.resultsfilterForm.action=document.resultsfilterForm.action+"&startorder=true";
     		document.resultsfilterForm.submit();
@@ -240,7 +240,7 @@
         googlewin.onclose=function(){ //Run custom code when window is about to be closed
 	        if(!saved)
 			{
-				return window.confirm("¿Seguro que desea salir sin Guardar?")
+				return window.confirm("&iquest;Seguro que desea salir sin Guardar?")
 			}
 			else
 			{

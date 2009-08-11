@@ -6,7 +6,7 @@
     <meta name="menu" content="ParticipantsMenu"/>
 </head>
 
-<form id="formulario" action="/participantss.html" method="GET">
+<form id="formulario" action="participantss.html" method="GET">
     <div class="subnavmenu-wrapper">
 		<div class="subnavmenu-left">
 		</div>
@@ -170,7 +170,7 @@
 
 	function deleteParticipant(sid)
 	{
-        var msg = "¿Está seguro que desea eliminarlo del torneo?";
+        var msg = "&iquest;Está seguro que desea eliminarlo del torneo?";
         ans = confirm(msg);
         if (ans) {
 			document.participantfilterForm.action=document.participantfilterForm.action+"&delete="+sid;
@@ -196,7 +196,7 @@
 			return;
 		}
 		
-        var msg = "¿Está seguro que desea añadir el equipo perro-guía seleccionado al torneo?\nAsegurése de que ha marcado correctamente la opción de celo";
+        var msg = "&iquest;Está seguro que desea añadir el equipo perro-guía seleccionado al torneo?\nAsegurése de que ha marcado correctamente la opción de celo";
         ans = confirm(msg);
         if (ans) {
 			document.participantfilterForm.action=document.participantfilterForm.action+"&add=true";

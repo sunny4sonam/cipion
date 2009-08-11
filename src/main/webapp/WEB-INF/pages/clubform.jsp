@@ -178,7 +178,7 @@
 	<!-- si hay sid es existente-->
 	<c:if test="${not empty club.sid}">
     	<div id="listcontent">
-			<a id="addButton" href="/guideform.html?edit=add&clubsid=${club.sid}" title="<fmt:message key="button.add"/>">
+			<a id="addButton" href="guideform.html?edit=add&clubsid=${club.sid}" title="<fmt:message key="button.add"/>">
 			</a>
     		<div id="listDetailTitle"><fmt:message key="club.listdetailtitle"/></div>
     

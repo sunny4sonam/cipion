@@ -7,6 +7,7 @@ import org.palaciego.cipion.service.GenericManager;
 
 import org.palaciego.cipion.model.Country;
 import org.palaciego.cipion.model.GenericPropertyEditor;	
+import org.palaciego.cipion.model.ImageUtil;
 import org.palaciego.cipion.webapp.controller.BaseFormController;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -67,7 +68,7 @@ public class CountryFormController extends BaseFormController {
     throws Exception {
     	
 //    	//meto los paises
-//    	System.out.println("meto los países!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//    	System.out.println("meto los paï¿½ses!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //    	List<countrydata> lista=parseContent(new String[4]);
 //    	for(int i=0;i<lista.size();i++)
 //    	{
@@ -92,6 +93,9 @@ public class CountryFormController extends BaseFormController {
             countryManager.remove(country.getSid());
             saveMessage(request, getText("country.deleted", locale));
         } else {
+        	//me aseguro de que la foto tiene dimensiones correctas
+        	country.setFlag(ImageUtil.resizeImage(country.getFlag(), 200, 200));
+        	
             countryManager.save(country);
             String key = (isNew) ? "country.added" : "country.updated";
             saveMessage(request, getText(key, locale));

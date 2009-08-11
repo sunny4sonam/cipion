@@ -5,16 +5,16 @@
     <meta name="heading" content="<fmt:message key='judgeList.heading'/>"/>
     <meta name="menu" content="JudgeMenu"/>
 </head>
-<form id="formulario" action="/judges.html" method="GET">
+<form id="formulario" action="judges.html" method="GET">
     <div class="subnavmenu-wrapper">
 		<div class="subnavmenu-left">
 		</div>
 		<div class="subnavmenu">
-			<a id="addButton" href="/judgeform.html?edit=add" title="<fmt:message key="button.add"/>">
+			<a id="addButton" href="judgeform.html?edit=add" title="<fmt:message key="button.add"/>">
 			</a>
 			<div class="buttonSeparator">
 			</div>
-			<a id="doneButton" href="/mainMenu.html" title="<fmt:message key="button.done"/>">
+			<a id="doneButton" href="mainMenu.html" title="<fmt:message key="button.done"/>">
 			</a>
 
 			<a id="filterButton" onclick="this.blur();document.forms['formulario'].submit();" href="#" title="<fmt:message key="form.search"/>">
