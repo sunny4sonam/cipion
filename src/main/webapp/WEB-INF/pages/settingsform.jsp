@@ -48,6 +48,18 @@
 		<form:errors path="*" cssClass="error" element="div"/>
         <ul class="formFields">
         <form:hidden path="sid"/>
+            <li>
+                <form:errors path="reportlogo" cssClass="fieldError"/>
+                <label><fmt:message key="settings.reportlogo"/>
+                    <span class="small"><fmt:message key="settings.reportlogo.detail"/></span>
+                </label>				
+				<c:if test="${(!(param.edit=='false')) || (empty param.edit)}">
+					<input type="file" id="reportlogo" name="reportlogo" />
+                </c:if>
+				<c:if test="${param.edit=='false'}">
+					<img src="getimage.html?sid=${settings.sid}&manager=settingsManager&pojo=Settings&field=reportlogo"/>
+                </c:if>
+            </li>
              <li>
         		<form:errors path="country" cssClass="fieldError"/>
                 <label><fmt:message key="settings.country"/>
@@ -138,7 +150,7 @@
 
 <v:javascript formName="settings" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-<script type="text/javascript" src="/scripts/si.files.js"></script>
+<script type="text/javascript" src="scripts/si.files.js"></script>
 
 <style type="text/css">
 .show{display:inline;}

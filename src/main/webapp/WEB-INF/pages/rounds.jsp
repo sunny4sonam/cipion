@@ -9,8 +9,8 @@
 <c:set var="buttons">
 	<div class="operaciones">
 		<ul>
-			<li><a href="<c:url value="/roundform.html"/>"><fmt:message key="button.add"/></a></li
-			><li><a href="<c:url value="/mainMenu.html"/>"/><fmt:message key="button.done"/></a></li>			
+			<li><a href="<c:url value="roundform.html"/>"><fmt:message key="button.add"/></a></li
+			><li><a href="<c:url value="mainMenu.html"/>"/><fmt:message key="button.done"/></a></li>			
 		</ul>
     </div>
 </c:set>

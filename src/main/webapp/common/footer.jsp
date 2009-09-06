@@ -1,4 +1,4 @@
-<%@ include file="/common/taglibs.jsp" %>
+<%@ include file="taglibs.jsp" %>
 
 	<div id="footerjas" >
         <div id="divider"><div></div></div>

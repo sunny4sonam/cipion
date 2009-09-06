@@ -85,7 +85,7 @@
 
 <v:javascript formName="grade" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-<script type="text/javascript" src="/scripts/si.files.js"></script>
+<script type="text/javascript" src="scripts/si.files.js"></script>
 
 <style type="text/css">
 .show{display:inline;}

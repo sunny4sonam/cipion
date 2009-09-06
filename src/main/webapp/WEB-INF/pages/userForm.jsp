@@ -11,7 +11,7 @@
     <c:if test="${not empty status.errorMessages}">
     <div class="error">
         <c:forEach var="error" items="${status.errorMessages}">
-            <img src="<c:url value="/images/iconWarning.gif"/>"
+            <img src="<c:url value="images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon"/>
             <c:out value="${error}" escapeXml="false"/><br />
         </c:forEach>
@@ -177,7 +177,7 @@
                 </tr>
                 <c:set var="leftList" value="${availableRoles}" scope="request"/>
                 <c:set var="rightList" value="${user.roleList}" scope="request"/>
-                <c:import url="/WEB-INF/pages/pickList.jsp">
+                <c:import url="WEB-INF/pages/pickList.jsp">
                     <c:param name="listCount" value="1"/>
                     <c:param name="leftId" value="availableRoles"/>
                     <c:param name="rightId" value="userRoles"/>
@@ -233,5 +233,5 @@ function onFormSubmit(theForm) {
 </script>
 
 <v:javascript formName="user" staticJavascript="false"/>
-<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value="scripts/validator.jsp"/>"></script>
 

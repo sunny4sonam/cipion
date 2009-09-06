@@ -223,7 +223,7 @@ public class Dog extends BaseObject implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !(o instanceof Dog)) return false;
 
         Dog pojo = (Dog) o;
 

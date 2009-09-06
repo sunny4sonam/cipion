@@ -158,7 +158,7 @@
 		div#eventsubmenu
 		{
 			height:67px;
-			width:523px;
+			width:540px;
 			float:left;	
 			cursor:pointer;
 		}
@@ -178,7 +178,7 @@
 		.eventsubmenuicon
 		{
 			float: left;
-			width:100px;
+			width:85px;
 			height:57px;
 			background:white;
 			padding:5px;
@@ -219,7 +219,7 @@
 		{
 			float: left;
 			background:transparent url(images/participantes.png) no-repeat scroll center center;
-			width:100px;
+			width:100%;
 			height:47px;
 		}
 
@@ -232,7 +232,7 @@
 		{
 			float: left;
 			background:transparent url(images/mangas.png) no-repeat scroll center center;
-			width:100px;
+			width:100%;
 			height:47px;
 		}
 
@@ -245,10 +245,23 @@
 		{
 			float: left;
 			background:transparent url(images/reports.png) no-repeat scroll center center;
-			width:100px;
+			width:100%;
 			height:47px;
 		}
+
+		div#eventsubmenuresults:hover
+		{
+			background-color:#EBF4FB;	
+		}
 		
+		div#eventsubmenuresults
+		{
+			float: left;
+			background:transparent url(images/results.png) no-repeat scroll center center;
+			width:100%;
+			height:47px;
+		}
+
 		#stylized #listcontent input
 		{
 			width:20px;
@@ -261,7 +274,7 @@
 		{
 			float: left;
 			background:transparent url(images/torneo.png) no-repeat scroll center center;
-			width:100px;
+			width:100%;
 			height:47px;
 		}
 
@@ -418,6 +431,12 @@
 			margin-right:14px;
 			margin-top:2px;
 			width:100px;
+        }
+        
+        div#checksurround
+        {
+			float:left;
+			width:295px;
         }
         
         /* END EDITS*/

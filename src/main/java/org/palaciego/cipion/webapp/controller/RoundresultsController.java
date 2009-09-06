@@ -138,22 +138,48 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     		//Si queremos establecer el orden de saldia
         	if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue())
         	{
-        		String hql="from Roundresults where round.event.sid="+eventSid+" and round.number=1 and participants.dog.grade.sid="+gradeSid+" and participants.dog.category.sid="+categorySid;
+        		String hql="from Roundresults where round.event.sid="+eventSid
+        		          +" and round.number=1 and participants.dog.grade.sid="+gradeSid
+        		          +" and participants.dog.category.sid="+categorySid
+        		          +" and participants.heat=false";
         		List<Roundresults> list=roundresultsManager.findHQL(hql);
         		long[] order=getOrder(list.size());
-
+        		//ordeno los que no estÃ¡n en celo
         		for(int i=0;i<list.size();i++)
         		{
         			Roundresults rr=list.get(i);
         			rr.setStartorder(order[i]);
         			roundresultsManager.save(rr);
         			//la manga2 el orden inverso
-            		hql="from Roundresults where round.event.sid="+eventSid+" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
+            		hql="from Roundresults where round.event.sid="+eventSid
+            		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
             		List<Roundresults> list2=roundresultsManager.findHQL(hql);
             		Roundresults rr2=list2.get(0);
             		rr2.setStartorder(list.size()-order[i]+1);
             		roundresultsManager.save(rr2);
         		}
+        		
+        		int oldSize=list.size();
+        		hql="from Roundresults where round.event.sid="+eventSid
+		          +" and round.number=1 and participants.dog.grade.sid="+gradeSid
+		          +" and participants.dog.category.sid="+categorySid
+		          +" and participants.heat=true";
+				list=roundresultsManager.findHQL(hql);
+				order=getOrder(list.size());
+				//ordeno los que estÃ¡n en celo, al final
+				for(int i=0;i<list.size();i++)
+				{
+        			Roundresults rr=list.get(i);
+        			rr.setStartorder(oldSize+order[i]);
+        			roundresultsManager.save(rr);
+        			//la manga2 el orden inverso
+            		hql="from Roundresults where round.event.sid="+eventSid
+            		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
+            		List<Roundresults> list2=roundresultsManager.findHQL(hql);
+            		Roundresults rr2=list2.get(0);
+            		rr2.setStartorder(oldSize+list.size()-order[i]+1);
+            		roundresultsManager.save(rr2);
+				}
         		
                 Locale locale = request.getLocale();
                 saveMessage(mv, getText("roundresults.ordersaved", locale),ERROR_MESSAGES_KEY);
@@ -220,15 +246,15 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     		//primero meto todos los grados
     		mv.addObject("listadegrados",gradeManager.getAll("name"));
     		
-    		//ahora meto todas las categorías
+    		//ahora meto todas las categorï¿½as
     		mv.addObject("listadecategorias",categoryManager.getAll("name"));
     		
     		
-    		//compruebo que están creadas todas las rondas y resultados, y las que no las creo
+    		//compruebo que estï¿½n creadas todas las rondas y resultados, y las que no las creo
     		testIfAllRight(Long.valueOf(eventSid).longValue(), Long.valueOf(roundSid).longValue(), Long.valueOf(gradeSid).longValue(), Long.valueOf(categorySid).longValue());
     		
     		//ahora muestro los participantes al torneo
-    		//del grado y categoría seleccionado
+    		//del grado y categorï¿½a seleccionado
     		String hql="from Roundresults where round.event.sid="+eventSid+" and round.number="+roundSid+" and participants.dog.grade.sid="+gradeSid+" and participants.dog.category.sid="+categorySid;
     		mv.addObject(roundresultsManager.findHQL(hql));
     		return mv;
@@ -241,7 +267,7 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
 
     /**
      * Comprueba que las rondas del torneo y los resultados del participante para esas rondas
-     * estén creados correctamente, sino las crea.
+     * estï¿½n creados correctamente, sino las crea.
      * @param eventSid long
      * @param mangaSid long
      * @param gradeSid long
@@ -249,7 +275,7 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
      */
     private void testIfAllRight(long eventSid, long mangaSid, long gradeSid, long categorySid)
     {
-    	//primero obtengo todos los participantes del torneo para ese grado y categoría
+    	//primero obtengo todos los participantes del torneo para ese grado y categorï¿½a
     	String hql="from Participants where dog.category.sid=" + categorySid + " and dog.grade.sid="+gradeSid;
     	List<Participants> participants=this.participantsManager.findHQL(hql);
     	//compruebo que para cada participante hay unos resultados
@@ -261,13 +287,13 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     		//si no hay resultados para el participante
     		if(rrList.size()<=0)
     		{
-    			//primero que nada miro a ver si están las rondas del torneo para este participante
+    			//primero que nada miro a ver si estï¿½n las rondas del torneo para este participante
     			hql="from Round where grade.sid=" + gradeSid + " and category.sid=" + categorySid + " and (number=1 or number=2)";
     			List<Round> roundList=roundManager.findHQL(hql);
     			//si no existen las rondas para el torneo, las creo
     			if(roundList.size()<=0)
     			{
-    				//creo dos rondas para esta categoría y grado
+    				//creo dos rondas para esta categorï¿½a y grado
     				for(int roundNumber=1;roundNumber<3;roundNumber++)
     				{
         				Round r=new Round();
@@ -284,7 +310,7 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     			}
     			
     			//creo los resultados para este participante
-    			//tantos resultados como rondas para esta categoría y grado haya (2 en teoría)
+    			//tantos resultados como rondas para esta categorï¿½a y grado haya (2 en teorï¿½a)
     			for(int iRound=0;iRound<roundList.size();iRound++)
     			{
     				Round r=roundList.get(iRound);
@@ -335,9 +361,9 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     
 
 	/**
-	 * Devuelve el orden de un array de dimensión size
+	 * Devuelve el orden de un array de dimensiï¿½n size
 	 * @param size
-	 * @return int[] dentro están las posiciones.
+	 * @return int[] dentro estï¿½n las posiciones.
 	 */
 	public long[] getOrder(int size)
 	{

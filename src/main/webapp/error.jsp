@@ -16,7 +16,7 @@
         <div id="content" class="clearfix">
             <div id="main">
                 <h1><fmt:message key="errorPage.heading"/></h1>
-                <%@ include file="/common/messages.jsp" %>
+                <%@ include file="common/messages.jsp" %>
                  <% if (exception != null) { %>
                     <pre><% exception.printStackTrace(new java.io.PrintWriter(out)); %></pre>
                  <% } else if ((Exception)request.getAttribute("javax.servlet.error.exception") != null) { %>

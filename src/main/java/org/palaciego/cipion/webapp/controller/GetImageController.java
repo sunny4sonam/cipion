@@ -81,7 +81,7 @@ public class GetImageController extends AbstractController{
 	}
 
 	/**
-	 * Función que devuelve el byte[] de la imagen NO PICTURE.
+	 * Funciï¿½n que devuelve el byte[] de la imagen NO PICTURE.
 	 * @return
 	 */
 	private byte[] getNoPicture()
@@ -92,7 +92,7 @@ public class GetImageController extends AbstractController{
 			{
 				System.out.println("ruta: "+ this.noImagePath);
 				//InputStream is=this.getClass().getResourceAsStream(this.noImagePath);
-				FileInputStream is=new FileInputStream(this.noImagePath);
+				InputStream is=getApplicationContext().getResource(this.noImagePath).getInputStream();
 				byte[] buffer=new byte[1024];
 				int read=0;
 				ByteArrayOutputStream baos=new ByteArrayOutputStream();

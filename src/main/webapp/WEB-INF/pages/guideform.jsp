@@ -102,7 +102,9 @@
                 <label><fmt:message key="guide.male"/>
                     <span class="small"><fmt:message key="guide.male.detail"/></span>
                 </label>				
-				<form:checkbox path="male" id="male" cssClass="formcheck"/>
+                <div id="checksurround">
+					<form:checkbox path="male" id="male" cssClass="formcheck"/>
+				</div>
             </li>
              <li>
         		 <form:errors path="club" cssClass="fieldError"/>
@@ -162,7 +164,7 @@
 
 <v:javascript formName="guide" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-<script type="text/javascript" src="/scripts/si.files.js"></script>
+<script type="text/javascript" src="scripts/si.files.js"></script>
 
 <style type="text/css">
 .show{display:inline;}

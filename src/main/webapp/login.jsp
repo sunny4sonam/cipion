@@ -49,7 +49,7 @@
         				<!--
                         <p>
                             <fmt:message key="login.signup">
-                                <fmt:param><c:url value="/signup.html"/></fmt:param>
+                                <fmt:param><c:url value="signup.html"/></fmt:param>
                             </fmt:message>
                         </p>
         				-->
@@ -64,7 +64,7 @@
     	<div class="formseparation" >
     	</div>
         
-        <%@ include file="/scripts/login.js"%>
+        <%@ include file="scripts/login.js"%>
         <!--
         <p><fmt:message key="login.passwordHint"/></p>
 		-->

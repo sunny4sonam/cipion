@@ -27,6 +27,7 @@ public class Settings extends BaseObject implements Serializable {
     private Long pointspenaltymaxreuses;
     private Long pointspenaltyreuse;
     private Long pointspenaltysecond;
+    private byte[] reportlogo;
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)     @Column(name="sid", unique=true, nullable=false)    
     public Long getSid() {
@@ -107,6 +108,15 @@ public class Settings extends BaseObject implements Serializable {
     
     public void setPointspenaltysecond(Long pointspenaltysecond) {
         this.pointspenaltysecond = pointspenaltysecond;
+    }
+
+    @Column(name="reportlogo",length=16777215)
+    public byte[] getReportlogo() {
+        return this.reportlogo;
+    }
+    
+    public void setReportlogo(byte[] picture) {
+        this.reportlogo = picture;
     }
 
 	/**	

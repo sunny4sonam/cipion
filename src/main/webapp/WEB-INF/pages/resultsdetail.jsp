@@ -32,13 +32,17 @@
                          <label><fmt:message key="resultdetail.eliminated"/>
                              <span class="small"><fmt:message key="resultdetail.eliminated.detail"/></span>
                          </label>
-        				<form:checkbox path="eliminated" id="eliminated" cssClass="formcheck"/>
+		                <div id="checksurround">
+        					<form:checkbox path="eliminated" id="eliminated" cssClass="formcheck"/>
+        				</div>
                     </li>
                     <li>
                          <label><fmt:message key="resultdetail.absent"/>
                              <span class="small"><fmt:message key="resultdetail.absent.detail"/></span>
                          </label>
-        				<form:checkbox path="absent" id="absent" cssClass="formcheck"/>
+		                <div id="checksurround">
+        					<form:checkbox path="absent" id="absent" cssClass="formcheck"/>
+        				</div>
                     </li>
                     <li>
                         <label><fmt:message key="resultdetail.startorder"/>
@@ -82,7 +86,7 @@
     
     <v:javascript formName="roundresults" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
     <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-    <script type="text/javascript" src="/scripts/si.files.js"></script>
+    <script type="text/javascript" src="scripts/si.files.js"></script>
     
     <style type="text/css">
     .show{display:inline;}

@@ -37,7 +37,7 @@
     		</a>
 			<div class="eventsubmenuseparator">
             </div>
-			<a class="eventsubmenuiconselected">
+			<a class="eventsubmenuicon"  href="roundresultss.html?sid=${eventsid}">
     			<div id="eventsubmenurounds">
                 </div>
     			<div class="eventsubmenuicontext">
@@ -46,7 +46,7 @@
     		</a>
 			<div class="eventsubmenuseparator">
             </div>
-			<a class="eventsubmenuicon"  href="eventresultss.html?sid=${eventsid}">
+			<a class="eventsubmenuiconselected">
     			<div id="eventsubmenuresults">
                 </div>
     			<div class="eventsubmenuicontext">
@@ -66,7 +66,7 @@
 	
 	
 	<div id="stylized" class="myform" >
-		<form name="resultsfilterForm" method="post" action="roundresultss.html?sid=${param.sid}" id="resultsfilterForm">
+		<form name="resultsfilterForm" method="post" action="eventresultss.html?sid=${param.sid}" id="resultsfilterForm">
     		<div class="addParticipant">
                 <ul class="formFields">
                     <li>
@@ -89,6 +89,13 @@
 								} 
 								%>
 								>Manga 2</option>
+                            <option value="3"
+								<%
+								if(roundSid.equals("3")){
+									out.println("selected");
+								} 
+								%>
+								>General</option>
                         </select>
                     </li>
 					<li>
@@ -136,65 +143,28 @@
                         </select>			
                     </li>
                 </ul>
-				<c:if test="${not empty roundresultsList}">
-				<div id="waydata" >
-    				<div class="roundresultstrm">
-    					<div class="roundresultstrmtext">TRM(s)</div>
-    					<input id="trm" name="trm" type="text" value="${trm}" onkeypress="showsavetrm(this)"/>
-    				</div>
-					<div class="roundresultssep"></div>
-    				<div class="roundresultstrm">
-    					<div class="roundresultstrmtext">TRS(s)</div>
-    					<input id="trs" name="trs" type="text" value="${trs}" onkeypress="showsavetrm(this)"/>
-    				</div>
-					<div class="roundresultssep"></div>
-    				<div class="roundresultstrm">
-    					<div class="roundresultstrmtext">Longitud(m)</div>
-    					<input id="distance" name="distance" type="text" value="${distance}" onkeypress="showsavetrm(this)"/>
-    				</div>
-					<div class="roundresultssep"></div>
-    				<div class="roundresultstrm">
-    					<div class="roundresultstrmtext">Velocidad(m/s)</div>
-    					<input id="velocity" name="velocity" type="text" value="${velocity}" onkeypress="showsavetrm(this)"/>
-    				</div>
-					<div class="roundresultssep"></div>
-        			<div id="savetrm" class="roundresultsnone" title="<fmt:message key="button.save"/>" onclick="savetrm();">
-                    </div>
-                </div>
-				<div id="startorderbutton" title="Establecer Orden de Salida" onclick="startorderfunction();">
-                </div>
-                </c:if>
     		</div>
 		</form>
 	</div>
 
+		<div class="formseparation" >
+		</div>
 		<div id="listcontent">
-		<display:table name="roundresultsList" class="table" defaultsort="1" requestURI="" id="roundresultsList" export="true" pagesize="25" >
-			<display:column property="startorder" sortable="true" titleKey="roundresults.startorder" paramId="sid" paramProperty="sid"/>
-			<display:column property="participants.dog.name" sortable="true" titleKey="dogList.heading"/>
-            <display:column sortProperty="participants.heat" sortable="true" titleKey="participants.heat">
-                <input type="checkbox" disabled="disabled" <c:if test="${roundresultsList.participants.heat}">checked="checked"</c:if>/>
-            </display:column>
-			<display:column property="fouls" sortable="true" titleKey="roundresults.fouls"/>
-			<display:column property="reuses" sortable="true" titleKey="roundresults.reuses"/>
-			<display:column property="result" sortable="true" titleKey="roundresults.result.table"/>
-			<display:column property="time" sortable="true" titleKey="roundresults.time"/>
-            <display:column sortProperty="absent" sortable="true" titleKey="roundresults.absent.table">
-                <input type="checkbox" disabled="disabled" <c:if test="${roundresultsList.absent}">checked="checked"</c:if>/>
-            </display:column>
-            <display:column sortProperty="eliminated" sortable="true" titleKey="roundresults.eliminated.table">
-                <input type="checkbox" disabled="disabled" <c:if test="${roundresultsList.eliminated}">checked="checked"</c:if>/>
-            </display:column>
-			<display:column titleKey="Edit" media="html" href="#">
-					<a onclick="javascript:detailprompt(${roundresultsList.sid})" ><div class="editresults" ></div></a>
-            </display:column>
-			
-        	<display:setProperty name="paging.banner.item_name"><fmt:message key="roundresultsList.roundresults"/></display:setProperty>
-            <display:setProperty name="paging.banner.items_name"><fmt:message key="roundresultsList.roundresultss"/></display:setProperty>
-            <display:setProperty name="export.excel.filename"><fmt:message key="roundresultsList.title"/>.xls</display:setProperty>
-            <display:setProperty name="export.csv.filename"><fmt:message key="roundresultsList.title"/>.csv</display:setProperty>
-            <display:setProperty name="export.pdf.filename"><fmt:message key="roundresultsList.title"/>.pdf</display:setProperty> 
-		</display:table>
+			<%
+			java.util.List resultados=(java.util.List)request.getAttribute("resultados");
+			if(resultados!=null)
+			{
+				for(int i=0;i<resultados.size();i++)
+				{
+					org.palaciego.cipion.model.Roundresults rr= (org.palaciego.cipion.model.Roundresults)resultados.get(i);
+			%>
+			<%="<h1>"+(i+1)+" -" + rr.getParticipants().getDog().getName() + "</h1><br>"%>
+			<%
+				}
+			}
+			%>
+		</div>
+		<div class="formseparation" >
 		</div>
 
 <script type="text/javascript" src="scripts/yui/build/yahoo/yahoo.js"></script>

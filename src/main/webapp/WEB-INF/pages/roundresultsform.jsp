@@ -26,7 +26,9 @@
     <li>
         <appfuse:label styleClass="desc" key="roundresults.absent"/>
         <form:errors path="absent" cssClass="fieldError"/>
-        <form:checkbox path="absent" id="absent" cssClass="checkbox"/>
+        <div id="checksurround">
+	        <form:checkbox path="absent" id="absent" cssClass="checkbox"/>
+	    </div>
     </li>
     <li>
         <appfuse:label styleClass="desc" key="roundresults.category"/>
@@ -36,7 +38,9 @@
     <li>
         <appfuse:label styleClass="desc" key="roundresults.eliminated"/>
         <form:errors path="eliminated" cssClass="fieldError"/>
-        <form:checkbox path="eliminated" id="eliminated" cssClass="checkbox"/>
+        <div id="checksurround">
+	        <form:checkbox path="eliminated" id="eliminated" cssClass="checkbox"/>
+		</div>
     </li>
     <li>
         <appfuse:label styleClass="desc" key="roundresults.fouls"/>

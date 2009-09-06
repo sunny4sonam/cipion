@@ -45,6 +45,15 @@
     		</a>
 			<div class="eventsubmenuseparator">
             </div>
+			<a class="eventsubmenuicon"  href="eventresultss.html?sid=${eventsid}">
+    			<div id="eventsubmenuresults">
+                </div>
+    			<div class="eventsubmenuicontext">
+    			<fmt:message key="event.results"/>
+    			</div>
+    		</a>
+			<div class="eventsubmenuseparator">
+            </div>
 			<a class="eventsubmenuicon"  href="eventreports.html?sid=${eventsid}">
     			<div id="eventsubmenureports">
                 </div>

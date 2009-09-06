@@ -26,7 +26,9 @@
     <li>
         <appfuse:label styleClass="desc" key="participants.absent"/>
         <form:errors path="absent" cssClass="fieldError"/>
-        <form:checkbox path="absent" id="absent" cssClass="checkbox"/>
+		<div id="checksurround">
+        	<form:checkbox path="absent" id="absent" cssClass="checkbox"/>
+        </div>
     </li>
      <li>
 		 <appfuse:label styleClass="desc" key="participants.dog"/>
@@ -62,7 +64,9 @@
     <li>
         <appfuse:label styleClass="desc" key="participants.heat"/>
         <form:errors path="heat" cssClass="fieldError"/>
-        <form:checkbox path="heat" id="heat" cssClass="checkbox"/>
+        <div id="checksurround">
+	        <form:checkbox path="heat" id="heat" cssClass="checkbox"/>
+	    </div>
     </li>
 </ul>
 

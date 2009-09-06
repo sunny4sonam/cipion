@@ -158,7 +158,9 @@
                  <label><fmt:message key="dog.male"/>
                      <span class="small"><fmt:message key="dog.male.detail"/></span>
                  </label>
-				<form:checkbox path="male" id="male" cssClass="formcheck"/>
+                <div id="checksurround">
+                	<form:checkbox path="male" id="male" cssClass="formcheck"/>
+                </div>
             </li>
             <li>
                 <form:errors path="idnumber" cssClass="fieldError"/>

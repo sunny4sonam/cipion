@@ -62,7 +62,7 @@
 	<!--  GetImage-START -->
 		<!-- Controller -->
 		    <bean id="getImageController" class="org.palaciego.cipion.webapp.controller.GetImageController">
-		        <property name="noImagePath" value="src/main/webapp/images/nopicture.jpg"/>
+		        <property name="noImagePath" value="images/nopicture.jpg"/>
 		    </bean>
 	<!--GetImage-END-->
     <!--Club-START-->
@@ -377,6 +377,16 @@
     <!--Roundresults-START-->
 		<!-- roundresultsController -->
 		    <bean id="roundresultsController" class="org.palaciego.cipion.webapp.controller.RoundresultsController">
+		        <property name="roundresultsManager" ref="roundresultsManager"/>
+		        <property name="gradeManager" ref="gradeManager"/>
+		        <property name="categoryManager" ref="categoryManager"/>
+		        <property name="participantsManager" ref="participantsManager" />
+		        <property name="roundManager" ref="roundManager" />
+		        <property name="eventManager" ref="eventManager" />
+		    </bean>
+
+		<!-- eventresultsController -->
+		    <bean id="eventresultsController" class="org.palaciego.cipion.webapp.controller.EventresultsController">
 		        <property name="roundresultsManager" ref="roundresultsManager"/>
 		        <property name="gradeManager" ref="gradeManager"/>
 		        <property name="categoryManager" ref="categoryManager"/>
