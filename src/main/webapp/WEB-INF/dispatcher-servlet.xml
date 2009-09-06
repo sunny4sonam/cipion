@@ -59,6 +59,11 @@
     </bean>
 
     
+	<!--  showreport-START -->
+		<!-- Controller -->
+		    <bean id="showReportController" class="org.palaciego.cipion.webapp.controller.ShowReportController">
+		    </bean>
+	<!--showreport-END-->
 	<!--  GetImage-START -->
 		<!-- Controller -->
 		    <bean id="getImageController" class="org.palaciego.cipion.webapp.controller.GetImageController">
@@ -393,6 +398,8 @@
 		        <property name="participantsManager" ref="participantsManager" />
 		        <property name="roundManager" ref="roundManager" />
 		        <property name="eventManager" ref="eventManager" />
+		        <property name="settingsManager" ref="settingsManager" />
+		        <property name="rangeCalificationManager" ref="rangecalificationManager"/>
 		    </bean>
 
 		<!-- resultsdetailController -->

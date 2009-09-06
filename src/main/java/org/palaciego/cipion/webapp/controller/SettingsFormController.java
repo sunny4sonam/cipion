@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.palaciego.cipion.model.Country;
 import org.palaciego.cipion.model.Eventtype;
 import org.palaciego.cipion.model.GenericPropertyEditor;
+import org.palaciego.cipion.model.ImageUtil;
 import org.palaciego.cipion.model.Settings;
 import org.palaciego.cipion.service.GenericManager;
 import org.springframework.validation.BindException;
@@ -94,11 +95,13 @@ public class SettingsFormController extends BaseFormController {
     		{
     			s.setEventtype(null);
     		}
-    		s.setMaxreuses(new Long(5));
+    		s.setMaxreuses(new Long(3));
     		s.setPointspenaltyabsent(new Long(100));
-    		s.setPointspenaltyfoul(new Long(100));
     		s.setPointspenaltymaxreuses(new Long(100));
-    		s.setPointspenaltyreuse(new Long(100));
+    		
+    		s.setPointspenaltyfoul(new Long(5));
+    		s.setPointspenaltyreuse(new Long(5));
+    		
     		s.setPointspenaltysecond(new Long(100));
     		settingsManager.save(s);
     	}
@@ -121,6 +124,8 @@ public class SettingsFormController extends BaseFormController {
             settingsManager.remove(settings.getSid());
             saveMessage(request, getText("settings.deleted", locale));
         } else {
+        	//me aseguro de que la foto tiene dimensiones correctas
+        	settings.setReportlogo(ImageUtil.resizeImage(settings.getReportlogo(), 200, 200));
             settingsManager.save(settings);
             String key = (isNew) ? "settings.added" : "settings.updated";
             saveMessage(request, getText(key, locale));

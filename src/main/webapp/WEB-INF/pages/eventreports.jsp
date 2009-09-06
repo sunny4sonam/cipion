@@ -67,11 +67,13 @@
 	
 	<div id="stylized" class="myform" >
 		<div class="resultreport">
+			<a target="_blank" href="showreport.html?report=results">
     		<div id="resultsreport1">
     		</div>
-    		<div class="resultsreporttext" onclick="alert('falta por hacer');">
+    		<div class="resultsreporttext">
 				<fmt:message key="reports.report1"/>
     		</div>
+	    	</a>
 		</div>
 		
     	<div class="formseparation" >

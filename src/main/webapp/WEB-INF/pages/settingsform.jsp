@@ -6,7 +6,7 @@
 </head>
 
 
-<form:form commandName="settings" method="post" action="settingsform.html" id="settingsForm" onsubmit="return validateSettings(this)">
+<form:form commandName="settings" method="post" action="settingsform.html" id="settingsForm" onsubmit="return validateSettings(this)" enctype="multipart/form-data">
     <div class="subnavmenu-wrapper">
 		<div class="subnavmenu-left">
 		</div>
@@ -102,7 +102,7 @@
              </li>
              <li>
                 <form:errors path="maxreuses" cssClass="fieldError"/>
-                <label><fmt:message key="settings.maxresuses"/>
+                <label><fmt:message key="settings.maxreuses"/>
 					<span class="small"><fmt:message key="settings.maxreuses.detail"/></span>
                 </label>
                 <form:input path="maxreuses" id="maxreuses" cssClass="text medium" cssErrorClass="text medium error" maxlength="255" readonly="${param.edit=='false'}"/>

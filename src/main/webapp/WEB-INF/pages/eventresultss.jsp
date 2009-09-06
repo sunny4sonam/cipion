@@ -125,14 +125,22 @@
                         </label>				
                         <select id="categorySid" class="select" name="categorySid"  onchange="document.resultsfilterForm.submit();">
                             <option value=""><fmt:message key="category.pickone"/></option>
+                            <%
+                            	java.lang.String sdefault="";
+								Object sid=request.getAttribute("categorySid");
+								if(sid!=null && (""+sid).equals("-100"))
+								{
+									sdefault="selected";
+								}
+							%>
+       						<option value="-100" <%=sdefault%>>Todas Las Categorías</option>
         					<%	java.util.List categoryList=(java.util.List)request.getAttribute("listadecategorias");
     							if(categoryList!=null)
     							{
         						for(int i=0;i<categoryList.size();i++)
         						{
+        							sdefault="";
         							org.palaciego.cipion.model.Category g= (org.palaciego.cipion.model.Category)categoryList.get(i);
-									Object sid=request.getAttribute("categorySid");
-									java.lang.String sdefault="";
 									if(sid!=null && (""+sid).equals(""+g.getSid()))
 									{
 										sdefault="selected";
@@ -150,19 +158,39 @@
 		<div class="formseparation" >
 		</div>
 		<div id="listcontent">
+			<table cellspacing="0" id="mytable" class="table">
+				<caption>Listado de Resultados</caption>
+				<thead>
+					<tr>
+						<th class="sortable" scope="col">Puesto</th>
+						<th class="sortable" scope="col">Perro</th>
+						<th class="sortable" scope="col">Guía</th>
+						<th class="sortable" scope="col">Penalización</th>
+						<th class="sortable" scope="col">Calificación</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
 			<%
 			java.util.List resultados=(java.util.List)request.getAttribute("resultados");
 			if(resultados!=null)
 			{
 				for(int i=0;i<resultados.size();i++)
 				{
-					org.palaciego.cipion.model.Roundresults rr= (org.palaciego.cipion.model.Roundresults)resultados.get(i);
+					org.palaciego.cipion.webapp.util.Winner w= (org.palaciego.cipion.webapp.util.Winner)resultados.get(i);
 			%>
-			<%="<h1>"+(i+1)+" -" + rr.getParticipants().getDog().getName() + "</h1><br>"%>
+			  		<tr class="<%=(i%2==0?"odd":"even")%>">
+						<%="<td>"+(i+1)+ "</td>"%>
+						<%="<td>"+w.participants.getDog().getName()+"</td>" %>
+						<%="<td>"+w.participants.getDog().getGuide().getFirstname()+"</td>" %>
+						<%="<td>"+(w.pathFaultPoints+w.timeFaultPoints)+"</td>" %>
+						<%="<td>"+w.Calification.getName()+"</td>" %>
+					</tr>
 			<%
 				}
 			}
 			%>
+				</tbody>
+			</table>		
 		</div>
 		<div class="formseparation" >
 		</div>

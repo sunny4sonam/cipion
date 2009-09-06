@@ -13,9 +13,13 @@ import org.palaciego.cipion.model.Category;
 import org.palaciego.cipion.model.Event;
 import org.palaciego.cipion.model.Grade;
 import org.palaciego.cipion.model.Participants;
+import org.palaciego.cipion.model.Rangecalification;
 import org.palaciego.cipion.model.Round;
 import org.palaciego.cipion.model.Roundresults;
+import org.palaciego.cipion.model.Settings;
 import org.palaciego.cipion.service.GenericManager;
+import org.palaciego.cipion.webapp.util.ResultsManager;
+import org.palaciego.cipion.webapp.util.Winner;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -31,6 +35,9 @@ public class EventresultsController implements Controller, ApplicationContextAwa
 	private GenericManager<Participants, Long> participantsManager;
 	private GenericManager<Round, Long> roundManager;
 	private GenericManager<Event, Long> eventManager;
+	private GenericManager<Settings, Long> settingsManager;
+	private GenericManager<Rangecalification, Long> rangeCalificationManager;
+	
 	public static final String SUCCESS_MESSAGES_KEY = "successMessages";
     public static final String ERROR_MESSAGES_KEY = "errors";
     private ApplicationContext ac;
@@ -43,6 +50,22 @@ public class EventresultsController implements Controller, ApplicationContextAwa
 
 	public void setEventManager(GenericManager<Event, Long> eventManager) {
 		this.eventManager = eventManager;
+	}
+
+    public GenericManager<Settings, Long> getSettingsManager() {
+		return settingsManager;
+	}
+
+	public void setSettingsManager(GenericManager<Settings , Long> settingsManager) {
+		this.settingsManager = settingsManager;
+	}
+
+    public GenericManager<Rangecalification, Long> getRangeCalificationManager() {
+		return rangeCalificationManager;
+	}
+
+	public void setRangeCalificationManager(GenericManager<Rangecalification , Long> rangeCalificationManager) {
+		this.rangeCalificationManager = rangeCalificationManager;
 	}
 
 	public GenericManager<Round, Long> getRoundManager() {
@@ -136,34 +159,68 @@ public class EventresultsController implements Controller, ApplicationContextAwa
     		//primero meto todos los grados
     		mv.addObject("listadegrados",gradeManager.getAll("name"));
     		
-    		//ahora meto todas las categor�as
+    		//ahora meto todas las categorías
     		mv.addObject("listadecategorias",categoryManager.getAll("name"));
     		
 
-    		//compruebo que est�n creadas todas las rondas y resultados, y las que no las creo
+    		//compruebo que están creadas todas las rondas y resultados, y las que no las creo
     		if(roundSid.trim().equals("1") || roundSid.trim().equals("2"))
     		{
         		testIfAllRight(Long.valueOf(eventSid).longValue(), Long.valueOf(roundSid).longValue(), Long.valueOf(gradeSid).longValue(), Long.valueOf(categorySid).longValue());
         		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
         		String hql="from Roundresults where round.event.sid="+eventSid
         		          +" and round.number="+roundSid
-        		          +" and participants.dog.grade.sid="+gradeSid
-        		          +" and participants.dog.category.sid="+categorySid;
+        		          +" and participants.dog.grade.sid="+gradeSid;
+        		
+        		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
+        		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
+        		//para dar menos premios! la pasta es la pasta
+        		if(Double.valueOf(categorySid).doubleValue()>=0)
+        		{
+  		          hql=hql +" and participants.dog.category.sid="+categorySid;
+        		}
+        		
         		List<Roundresults> results=roundresultsManager.findHQL(hql);
-        		results=orderWinners(results);
-        		mv.addObject("resultados",results);
+        		ResultsManager rm=new ResultsManager(settingsManager,this.rangeCalificationManager);
+
+        		List<Winner> winners=rm.orderResults(results);
+        		mv.addObject("resultados",winners);
     		}
     		else
     		{
         		testIfAllRight(Long.valueOf(eventSid).longValue(), Long.valueOf(1).longValue(), Long.valueOf(gradeSid).longValue(), Long.valueOf(categorySid).longValue());
         		testIfAllRight(Long.valueOf(eventSid).longValue(), Long.valueOf(2).longValue(), Long.valueOf(gradeSid).longValue(), Long.valueOf(categorySid).longValue());
+
         		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
         		String hql="from Roundresults where round.event.sid="+eventSid
-        		          +" and participants.dog.grade.sid="+gradeSid
-        		          +" and participants.dog.category.sid="+categorySid;
-        		List<Roundresults> results=roundresultsManager.findHQL(hql);
-        		List<Roundresults> resultsgrouped=groupRoundResults(results);
-        		results=orderWinners(resultsgrouped);
+		          +" and round.number=1"
+		          +" and participants.dog.grade.sid="+gradeSid;
+		          
+	        		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
+	        		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
+	        		//para dar menos premios! la pasta es la pasta
+	        		if(Double.valueOf(categorySid).doubleValue()>=0)
+	        		{
+	  		          hql=hql +" and participants.dog.category.sid="+categorySid;
+	        		}
+
+        		List<Roundresults> results1=roundresultsManager.findHQL(hql);
+        		hql="from Roundresults where round.event.sid="+eventSid
+		          +" and round.number=2"
+		          +" and participants.dog.grade.sid="+gradeSid;
+        		
+        		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
+        		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
+        		//para dar menos premios! la pasta es la pasta
+        		if(Double.valueOf(categorySid).doubleValue()>=0)
+        		{
+  		          hql=hql +" and participants.dog.category.sid="+categorySid;
+        		}
+
+        		List<Roundresults> results2=roundresultsManager.findHQL(hql);
+        		ResultsManager rm=new ResultsManager(settingsManager,this.rangeCalificationManager);
+        		
+        		List<Winner> results=rm.orderResults(results1,results2);
         		mv.addObject("resultados",results);
     		}
     		return mv;
@@ -268,93 +325,6 @@ public class EventresultsController implements Controller, ApplicationContextAwa
     }
     
     
-    /**
-     * Función que recibe una lsita de participantes con sus resultados, y devuelve otra
-     * con los mismos participantes pero ordenada de manera que los primeros son los que mejores resultados han
-     * obtenido en la prueba.
-     * @param participants {@link List}<Roundresults/>
-     * @return {@link List}<Roundresults/>
-     */
-    private List<Roundresults> orderWinners(List<Roundresults> participants)
-    {
-    		//comparador por faltas
-    		Comparator<Roundresults> cmp1=new Comparator<Roundresults>() {
-
-				public int compare(Roundresults o1, Roundresults o2) {
-					Long fo1=o1.getFouls();
-					Long fo2=o2.getFouls();
-					
-					//si no se ha presentado
-					if(o1.isAbsent() || o2.isAbsent())
-					{
-						//si los dos no se han presentado, empate
-						if(o1.isAbsent() && o2.isAbsent())
-						{
-							return 0;
-						}
-						//si no se ha presentado el primero, entonces el primero es mayor
-						else if(o1.isAbsent())
-						{
-							return 1;
-						}
-						//sino se ha presentado els egundo, entonces el primero es menor
-						else
-						{
-							return -1;
-						}
-					}
-
-					//si está eliminado
-					if(o1.isEliminated() || o2.isEliminated())
-					{
-						//si los dos están eliminados
-						if(o1.isEliminated() && o2.isEliminated())
-						{
-							return 0;
-						}
-						//si el primero está eliminado, entonces el primero es mayor
-						else if(o1.isEliminated())
-						{
-							return 1;
-						}
-						//sino está eliminado el segundo, entonces el primero es menor
-						else
-						{
-							return -1;
-						}
-					}
-
-
-					//si tienen las mismas faltas ordeno por tiempo
-					if(fo1.longValue()==fo2.longValue())
-					{
-						//ahora ordeno por tiempo
-						float to1=o1.getTime();
-						float to2=o2.getTime();
-						if(to1==to2)
-						{
-							return 0;
-						}
-						else if(to1<to2)
-						{
-							return -1;
-						}
-						else
-						{
-							return 1;
-						}
-					}
-					
-					return fo1.compareTo(fo2);
-				}
-			};
-
-			//ordeno
-    		Collections.sort(participants, cmp1);
-    			
-    		return participants;
-    }
-
     /**
      * Comprueba que las rondas del torneo y los resultados del participante para esas rondas
      * est�n creados correctamente, sino las crea.
