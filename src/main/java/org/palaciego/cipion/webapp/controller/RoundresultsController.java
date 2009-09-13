@@ -12,9 +12,13 @@ import org.palaciego.cipion.model.Category;
 import org.palaciego.cipion.model.Event;
 import org.palaciego.cipion.model.Grade;
 import org.palaciego.cipion.model.Participants;
+import org.palaciego.cipion.model.Rangecalification;
 import org.palaciego.cipion.model.Round;
 import org.palaciego.cipion.model.Roundresults;
+import org.palaciego.cipion.model.Settings;
 import org.palaciego.cipion.service.GenericManager;
+import org.palaciego.cipion.webapp.util.ResultsManager;
+import org.palaciego.cipion.webapp.util.Winner;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -30,11 +34,28 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
 	private GenericManager<Participants, Long> participantsManager;
 	private GenericManager<Round, Long> roundManager;
 	private GenericManager<Event, Long> eventManager;
+	private GenericManager<Settings, Long> settingsManager;
+	private GenericManager<Rangecalification, Long> rangeCalificationManager;
 	public static final String SUCCESS_MESSAGES_KEY = "successMessages";
     public static final String ERROR_MESSAGES_KEY = "errors";
     private ApplicationContext ac;
 	private MessageSourceAccessor msa;
 	
+    public GenericManager<Settings, Long> getSettingsManager() {
+		return settingsManager;
+	}
+
+	public void setSettingsManager(GenericManager<Settings , Long> settingsManager) {
+		this.settingsManager = settingsManager;
+	}
+
+    public GenericManager<Rangecalification, Long> getRangeCalificationManager() {
+		return rangeCalificationManager;
+	}
+
+	public void setRangeCalificationManager(GenericManager<Rangecalification , Long> rangeCalificationManager) {
+		this.rangeCalificationManager = rangeCalificationManager;
+	}
 	
     public GenericManager<Event, Long> getEventManager() {
 		return eventManager;
@@ -136,7 +157,7 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     		}
 
     		//Si queremos establecer el orden de saldia
-        	if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue())
+        	if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue() && roundSid.trim().equals("1"))
         	{
         		String hql="from Roundresults where round.event.sid="+eventSid
         		          +" and round.number=1 and participants.dog.grade.sid="+gradeSid
@@ -184,6 +205,45 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
                 Locale locale = request.getLocale();
                 saveMessage(mv, getText("roundresults.ordersaved", locale),ERROR_MESSAGES_KEY);
         	}
+        	else if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue() && roundSid.trim().equals("2"))
+        	{
+        		//para la manga 2, el orden es inverso a los resultados de la primera manga.
+        		//primero obtengo el resultado d ela primera manga
+        		String hql="from Roundresults where round.event.sid="+eventSid
+        		          +" and round.number=1"
+        		          +" and participants.dog.grade.sid="+gradeSid
+        				  +" and participants.dog.category.sid="+categorySid;
+        		List<Roundresults> results=roundresultsManager.findHQL(hql);
+        		ResultsManager rm=new ResultsManager(settingsManager,this.rangeCalificationManager);
+        		List<Winner> winners=rm.orderResults(results);
+        		
+        		//ahora los pongo al reves, todos menos los que están en celo que van al final
+        		hql="from Roundresults where round.event.sid="+eventSid
+		          +" and round.number=2 and participants.dog.grade.sid="+gradeSid
+		          +" and participants.dog.category.sid="+categorySid;
+				List<Roundresults> listRResults=roundresultsManager.findHQL(hql);
+        		hql="from Roundresults where round.event.sid="+eventSid
+		          +" and round.number=2 and participants.dog.grade.sid="+gradeSid
+		          +" and participants.dog.category.sid="+categorySid
+		          +" and participants.heat=true";
+				List<Roundresults> listRResultsHeat=roundresultsManager.findHQL(hql);
+				long lastHeat=winners.size();
+				for(int i=0;i<winners.size();i++)
+        		{
+        			Roundresults rr=getRoundResults(winners.get(i),listRResults);
+        			if(!rr.getParticipants().isHeat())
+        			{
+            			rr.setStartorder((long)(winners.size()-i+(winners.size()-lastHeat)-listRResultsHeat.size()));
+        			}
+        			else
+        			{
+            			rr.setStartorder(lastHeat);
+            			lastHeat--;
+        			}
+        			roundresultsManager.save(rr);
+        		}
+        	}
+
 
     		//Si queremos guardar los cambios de trm trs velocidad y distancia
         	if(savetrm!=null && Boolean.valueOf(savetrm).booleanValue())
@@ -263,6 +323,26 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     	{
             return new ModelAndView().addObject(roundresultsManager.getAll());
     	}
+    }
+ 
+    /**
+     * Función que devuelve los resultados de una ronda de un determinado participante
+     * @param w {@link Winner}
+     * @param lista
+     * @return
+     */
+    private Roundresults getRoundResults(Winner w, List<Roundresults> lista)
+    {
+    	for (int i=0;i<lista.size();i++)
+    	{
+    		Roundresults rr=lista.get(i);
+    		Long dogSid=rr.getParticipants().getDog().getSid();
+    		if(w.participants.getDog().getSid().equals(dogSid))
+    		{
+    			return rr;
+    		}
+    	}
+    	return null;
     }
 
     /**

@@ -161,8 +161,21 @@
         			<div id="savetrm" class="roundresultsnone" title="<fmt:message key="button.save"/>" onclick="savetrm();">
                     </div>
                 </div>
-				<div id="startorderbutton" title="Establecer Orden de Salida" onclick="startorderfunction();">
+				<%
+				if(roundSid.equals("1")){
+				%>
+				<div id="startorderbutton" title="Establecer Orden de Salida Manga 1" onclick="startorderfunction();">
                 </div>
+				<%
+				}
+				else
+				{
+				%>
+				<div id="startorderbutton" title="Establecer Orden de Salida Manga 2" onclick="startorderMangaTwofunction();">
+                </div>
+				<%
+				}
+				%>
                 </c:if>
     		</div>
 		</form>
@@ -228,9 +241,17 @@
     		document.resultsfilterForm.action=document.resultsfilterForm.action+"&startorder=true";
     		document.resultsfilterForm.submit();
 		}
-
 	}
 
+	function startorderMangaTwofunction()
+	{
+		if(window.confirm("&iquest;Seguro que desea establecer el orden de salida para la Manga 2? Recuerde que el orden será inverso a los resultados obtenidos en la primera manga."))
+		{
+    		document.resultsfilterForm.action=document.resultsfilterForm.action+"&startorder=true";
+    		document.resultsfilterForm.submit();
+		}
+	}
+	
 	function showsavetrm(objID)
 	{
 		document.getElementById("savetrm").className="roundresultssave";
