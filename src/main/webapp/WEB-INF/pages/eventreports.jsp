@@ -67,7 +67,7 @@
 	
 	<div id="stylized" class="myform" >
 		<div class="resultreport">
-			<a target="_blank" href="showreport.html?report=results">
+			<a target="_blank" href="showreport.html?report=results&sid=${param.sid}">
     		<div id="resultsreport1">
     		</div>
     		<div class="resultsreporttext">

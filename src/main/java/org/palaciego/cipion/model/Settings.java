@@ -21,6 +21,7 @@ public class Settings extends BaseObject implements Serializable {
     private Long sid;
     private Country country;
     private Eventtype eventtype;
+    private Club club;
     private Long maxreuses;
     private Long pointspenaltyabsent;
     private Long pointspenaltyfoul;
@@ -45,6 +46,15 @@ public class Settings extends BaseObject implements Serializable {
     
     public void setCountry(Country country) {
         this.country = country;
+    }
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="fk_club")
+    public Club getClub() {
+        return this.club;
+    }
+    
+    public void setClub(Club club) {
+        this.club = club;
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="fk_eventtype", nullable=false)
@@ -162,7 +172,7 @@ public class Settings extends BaseObject implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null ) return false;
 
         Settings pojo = (Settings) o;
 

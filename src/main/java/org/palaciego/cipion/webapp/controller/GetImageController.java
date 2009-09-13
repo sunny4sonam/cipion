@@ -48,6 +48,8 @@ public class GetImageController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mv=new ModelAndView();
 		
+		System.out.println("Están llamando a GetImageController");
+		
 		String sid=request.getParameter("sid");
 		String manager=request.getParameter("manager");
 		String pojo=request.getParameter("pojo");

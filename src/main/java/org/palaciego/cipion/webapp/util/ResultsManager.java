@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.palaciego.cipion.model.Calification;
+import org.palaciego.cipion.model.Dog;
+import org.palaciego.cipion.model.Guide;
 import org.palaciego.cipion.model.Rangecalification;
 import org.palaciego.cipion.model.Role;
 import org.palaciego.cipion.model.Roundresults;
@@ -159,6 +161,7 @@ public class ResultsManager
     		Winner w1=list1.get(i);
     		Winner w2=getWinnerFromList(list2,w1.results);
     		Winner w3=new Winner();
+    		w3.participants=w1.participants;
     		w3.pathFaultPoints=w1.pathFaultPoints+w2.pathFaultPoints;
     		w3.timeFaultPoints=w1.timeFaultPoints+w2.timeFaultPoints;
     		w3.Calification=getCalification(w3, false);
@@ -182,7 +185,13 @@ public class ResultsManager
     	for(int i=0;i<list.size();i++)
     	{
     		Winner w=list.get(i);
-    		if(w.results.equals(rr))
+    		
+    		Dog dog1=w.results.getParticipants().getDog();
+    		Dog dog2=rr.getParticipants().getDog();
+    		Guide guide1=w.results.getParticipants().getDog().getGuide();
+    		Guide guide2=rr.getParticipants().getDog().getGuide();
+    		
+    		if(dog1.getSid()==dog2.getSid() && guide1.getSid()==guide2.getSid())
     		{
     			return w;
     		}

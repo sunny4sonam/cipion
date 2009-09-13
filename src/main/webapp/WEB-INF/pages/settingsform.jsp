@@ -81,6 +81,29 @@
                 </c:if>
              </li>
              <li>
+        		<form:errors path="club" cssClass="fieldError"/>
+                <label><fmt:message key="settings.club"/>
+                    <span class="small"><fmt:message key="settings.club.detail"/></span>
+                </label>
+				<c:if test="${param.edit=='false' && club!=null}">
+					<form:input path="club.formLabelField" id="club" cssClass="text medium" cssErrorClass="text medium error" maxlength="255" readonly="true"/>
+                </c:if>
+				<c:if test="${param.edit=='false' && club==null}">
+					<input id="club" class="text medium" type="text" maxlength="255" value="" name="club"/>
+                </c:if>
+				<c:if test="${(!(param.edit=='false')) || (empty param.edit)}">
+            	     <form:select path="club" id="club" cssClass="select">
+            	     	<c:if test="${!empty clubList}">
+                 			<option value=""><fmt:message key="club.pickone"/></option>
+            	        	<form:options items="${clubList}" itemValue="formIdField" itemLabel="formLabelField" />
+            	     	</c:if>
+            	     	<c:if test="${empty clubList}">
+            	     		<option value=""><fmt:message key="club.noonetopick"/></option>
+            	     	</c:if>
+            	     </form:select>
+                </c:if>
+             </li>
+             <li>
 				<form:errors path="eventtype" cssClass="fieldError"/>
                 <label><fmt:message key="settings.eventtype"/>
 					<span class="small"><fmt:message key="settings.eventtype.detail"/></span>

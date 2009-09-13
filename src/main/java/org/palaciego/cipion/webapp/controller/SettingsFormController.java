@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.palaciego.cipion.model.Club;
 import org.palaciego.cipion.model.Country;
 import org.palaciego.cipion.model.Eventtype;
 import org.palaciego.cipion.model.GenericPropertyEditor;
@@ -20,11 +21,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class SettingsFormController extends BaseFormController {
     private GenericManager<Settings, Long> settingsManager = null;
+    private GenericManager<Club, Long> clubManager = null;
 
     public void setSettingsManager(GenericManager<Settings, Long> settingsManager) {
         this.settingsManager = settingsManager;
     }
-    
+
+    public void setClubManager(GenericManager<Club, Long> clubManager) {
+        this.clubManager = clubManager;
+    }
+	private GenericPropertyEditor<Club, Long> clubPropEdit = null;
+	public void setClubPropEdit(GenericPropertyEditor<Club, Long> clubPropEdit) {
+		this.clubPropEdit = clubPropEdit;
+	}
+
     // Obtain Related managers 
 	// #START-country#
 	// FIXME Verify IDENTIFIER TYPE of Country
@@ -51,7 +61,6 @@ public class SettingsFormController extends BaseFormController {
 		this.eventtypePropEdit = eventtypePropEdit;
 	}
 	// #END-eventtype#
-	
 	// End related managers    
     
 
@@ -67,6 +76,7 @@ public class SettingsFormController extends BaseFormController {
     	super.initBinder(request, binder);
 		binder.registerCustomEditor(Country.class, countryPropEdit);
 		binder.registerCustomEditor(Eventtype.class, eventtypePropEdit);
+		binder.registerCustomEditor(Club.class, clubPropEdit);
     }
 
     protected Object formBackingObject(HttpServletRequest request)
@@ -95,6 +105,15 @@ public class SettingsFormController extends BaseFormController {
     		{
     			s.setEventtype(null);
     		}
+    		List<Club> lclub=clubManager.getAll();
+    		if(lclub.size()>0)
+    		{
+        		s.setClub(lclub.get(0));
+    		}
+    		else
+    		{
+    			s.setClub(null);
+    		}    		
     		s.setMaxreuses(new Long(3));
     		s.setPointspenaltyabsent(new Long(100));
     		s.setPointspenaltymaxreuses(new Long(100));
@@ -152,6 +171,7 @@ public class SettingsFormController extends BaseFormController {
 	 	// Q: How to reference data? -> A: Using <field.name>Manager
 	 	allReferenceData.put("countryList",  countryManager.getAll("name"));
 	 	allReferenceData.put("eventtypeList",  eventtypeManager.getAll("name"));
+	 	allReferenceData.put("clubList",  clubManager.getAll("name"));
 		// #END isManyToOne fields
 		
 		return allReferenceData;

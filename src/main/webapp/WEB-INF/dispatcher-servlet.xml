@@ -62,6 +62,12 @@
 	<!--  showreport-START -->
 		<!-- Controller -->
 		    <bean id="showReportController" class="org.palaciego.cipion.webapp.controller.ShowReportController">
+		        <property name="settingsManager" ref="settingsManager"/>
+				<property name="eventManager" ref="eventManager"/>
+				<property name="roundresultsManager" ref="roundresultsManager"/>
+				<property name="gradeManager" ref="gradeManager"/>
+				<property name="categoryManager" ref="categoryManager"/>
+				<property name="rangeCalificationManager" ref="rangecalificationManager"/>
 		    </bean>
 	<!--showreport-END-->
 	<!--  GetImage-START -->
@@ -447,6 +453,8 @@
 				<property name="countryManager" ref="countryManager"/>
 				<property name="countryPropEdit" ref="countryPropEdit"/>
 				<property name="eventtypeManager" ref="eventtypeManager"/>
+				<property name="clubManager" ref="clubManager"/>
+				<property name="clubPropEdit" ref="clubPropEdit"/>
 				<property name="eventtypePropEdit" ref="eventtypePropEdit"/>
 		    </bean>
 	<!--Settings-END-->

@@ -3,6 +3,7 @@ package org.palaciego.cipion.webapp.view;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.view.AbstractView;
 
 
@@ -25,7 +27,7 @@ import org.springframework.web.servlet.view.AbstractView;
  * @author SEJAS
  *
  */
-public class XslFopView extends AbstractView
+public class XslFopView extends AbstractView implements ApplicationContextAware
 {
 	/**
 	 * Factoria de Fop.
@@ -36,11 +38,23 @@ public class XslFopView extends AbstractView
 	public static final String BASICMAP="BASICMAP";
 
 	/**
-	 * Constructor.
+	 * URL Base para los recursos.
 	 */
-	public XslFopView()
+	private String mBaseUrl;
+
+	/**
+	 * Constructor.
+	 * @param baseUrl {@link String} URL bases for resources
+	 */
+	public XslFopView(String baseUrl)
 	{
 		this.fopFactory = FopFactory.newInstance();
+		try {
+			this.fopFactory.setBaseURL(baseUrl);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -58,6 +72,10 @@ public class XslFopView extends AbstractView
 		if (data != null)
 		{
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			
+//			//String realPath=((WebApplicationContext)this.getApplicationContext()).getServletContext().getRealPath("./");
+//			String realPath="/home/spheras/desarrollo/software/apache-tomcat-6.0.20/webapps";//
+//			this.fopFactory.setBaseURL(realPath);
 			Fop fop = this.fopFactory.newFop("application/pdf", out);
 			TransformerFactory tf=TransformerFactory.newInstance();
 			
@@ -82,7 +100,6 @@ public class XslFopView extends AbstractView
 			response.getOutputStream().flush();
 		}
 	}
-	
 
 
 }
