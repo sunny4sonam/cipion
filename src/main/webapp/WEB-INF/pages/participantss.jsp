@@ -148,13 +148,16 @@
 				<div id="addParticipantbutton" >
 					<input type="button" onClick="javascript:addParticipant();" value="<fmt:message key="button.add"/> <fmt:message key="participantsList.participants"/>" class="addParticipantbutton"/>
 				</div>
-
+				
+				<div id="dorsalbutton" title="Establecer Dorsales" onclick="dorsalfunction();">
+                </div>
     		</div>
 		</form>
 	</div>
 
 		<div id="listcontent">
 		<display:table name="participantsList" class="table" defaultsort="1" requestURI="" id="participantsList" export="true" pagesize="25" >
+			<display:column property="dorsal" sortable="true" titleKey="participants.dorsal"/>
 			<display:column property="dog.name" sortable="true" titleKey="dogList.heading" paramId="sid" paramProperty="sid"/>
 			<display:column property="dog.guide.formLabelField" sortable="true" titleKey="guideList.heading"/>
 			<display:column property="dog.guide.club.name" sortable="true" titleKey="clubList.heading"/>
@@ -177,6 +180,16 @@
 <script type="text/javascript">
     highlightTableRows("participantsList");
 
+	function dorsalfunction()
+	{
+		if(window.confirm("&iquest;Seguro que desea establecer los dorsales para los participantes?"))
+		{
+    		document.participantfilterForm.action=document.participantfilterForm.action+"&dorsal=true";
+    		document.participantfilterForm.submit();
+		}
+	}
+
+    
 	function deleteParticipant(sid)
 	{
         var msg = "&iquest;Está seguro que desea eliminarlo del torneo?";
@@ -207,7 +220,8 @@
 		
         var msg = "&iquest;Está seguro que desea añadir el equipo perro-guía seleccionado al torneo?\nAsegurése de que ha marcado correctamente la opción de celo";
         ans = confirm(msg);
-        if (ans) {
+        if (ans) 
+        {
 			document.participantfilterForm.action=document.participantfilterForm.action+"&add=true";
 			document.participantfilterForm.submit();
         }

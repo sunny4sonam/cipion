@@ -159,51 +159,64 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
     		//Si queremos establecer el orden de saldia
         	if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue() && roundSid.trim().equals("1"))
         	{
-        		String hql="from Roundresults where round.event.sid="+eventSid
-        		          +" and round.number=1 and participants.dog.grade.sid="+gradeSid
-        		          +" and participants.dog.category.sid="+categorySid
-        		          +" and participants.heat=false";
-        		List<Roundresults> list=roundresultsManager.findHQL(hql);
-        		long[] order=getOrder(list.size());
-        		//ordeno los que no están en celo
-        		for(int i=0;i<list.size();i++)
+        		List<Grade> grades=gradeManager.getAll();
+        		List<Category> categories=categoryManager.getAll();
+        		for(int g=0;g<grades.size();g++)
         		{
-        			Roundresults rr=list.get(i);
-        			rr.setStartorder(order[i]);
-        			roundresultsManager.save(rr);
-        			//la manga2 el orden inverso
-            		hql="from Roundresults where round.event.sid="+eventSid
-            		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
-            		List<Roundresults> list2=roundresultsManager.findHQL(hql);
-            		Roundresults rr2=list2.get(0);
-            		rr2.setStartorder(list.size()-order[i]+1);
-            		roundresultsManager.save(rr2);
+        			for(int c=0;c<categories.size();c++)
+        			{
+        				Grade grade=grades.get(g);
+        				Category category=categories.get(c);
+	                		String hql="from Roundresults where round.event.sid="+eventSid
+	      		          +" and round.number=1 and participants.dog.grade.sid="+grade.getSid()
+	      		          +" and participants.dog.category.sid="+category.getSid()
+	      		          +" and participants.heat=false";
+			      		List<Roundresults> list=roundresultsManager.findHQL(hql);
+			      		if(list.size()>0)
+			      		{
+				      		long[] order=getOrder(list.size());
+				      		//ordeno los que no están en celo
+				      		for(int i=0;i<list.size();i++)
+				      		{
+				      			Roundresults rr=list.get(i);
+				      			rr.setStartorder(order[i]);
+				      			roundresultsManager.save(rr);
+				      			//la manga2 el orden inverso
+				          		hql="from Roundresults where round.event.sid="+eventSid
+				          		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
+				          		List<Roundresults> list2=roundresultsManager.findHQL(hql);
+				          		Roundresults rr2=list2.get(0);
+				          		rr2.setStartorder(list.size()-order[i]+1);
+				          		roundresultsManager.save(rr2);
+				      		}
+				      		
+				      		int oldSize=list.size();
+				      		hql="from Roundresults where round.event.sid="+eventSid
+						          +" and round.number=1 and participants.dog.grade.sid="+grade.getSid()
+						          +" and participants.dog.category.sid="+category.getSid()
+						          +" and participants.heat=true";
+								list=roundresultsManager.findHQL(hql);
+								order=getOrder(list.size());
+								//ordeno los que están en celo, al final
+								for(int i=0;i<list.size();i++)
+								{
+				      			Roundresults rr=list.get(i);
+				      			rr.setStartorder(oldSize+order[i]);
+				      			roundresultsManager.save(rr);
+				      			//la manga2 el orden inverso
+				          		hql="from Roundresults where round.event.sid="+eventSid
+				          		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
+				          		List<Roundresults> list2=roundresultsManager.findHQL(hql);
+				          		Roundresults rr2=list2.get(0);
+				          		rr2.setStartorder(oldSize+list.size()-order[i]+1);
+				          		roundresultsManager.save(rr2);
+								}
+							}
+
+			              Locale locale = request.getLocale();
+			              saveMessage(mv, getText("roundresults.ordersaved", locale),ERROR_MESSAGES_KEY);
+        			}
         		}
-        		
-        		int oldSize=list.size();
-        		hql="from Roundresults where round.event.sid="+eventSid
-		          +" and round.number=1 and participants.dog.grade.sid="+gradeSid
-		          +" and participants.dog.category.sid="+categorySid
-		          +" and participants.heat=true";
-				list=roundresultsManager.findHQL(hql);
-				order=getOrder(list.size());
-				//ordeno los que están en celo, al final
-				for(int i=0;i<list.size();i++)
-				{
-        			Roundresults rr=list.get(i);
-        			rr.setStartorder(oldSize+order[i]);
-        			roundresultsManager.save(rr);
-        			//la manga2 el orden inverso
-            		hql="from Roundresults where round.event.sid="+eventSid
-            		   +" and round.number=2 and participants.dog.sid="+rr.getParticipants().getDog().getSid();
-            		List<Roundresults> list2=roundresultsManager.findHQL(hql);
-            		Roundresults rr2=list2.get(0);
-            		rr2.setStartorder(oldSize+list.size()-order[i]+1);
-            		roundresultsManager.save(rr2);
-				}
-        		
-                Locale locale = request.getLocale();
-                saveMessage(mv, getText("roundresults.ordersaved", locale),ERROR_MESSAGES_KEY);
         	}
         	else if(startOrder!=null && Boolean.valueOf(startOrder).booleanValue() && roundSid.trim().equals("2"))
         	{
@@ -324,7 +337,7 @@ public class RoundresultsController implements Controller, ApplicationContextAwa
             return new ModelAndView().addObject(roundresultsManager.getAll());
     	}
     }
- 
+
     /**
      * Función que devuelve los resultados de una ronda de un determinado participante
      * @param w {@link Winner}

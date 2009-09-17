@@ -176,6 +176,7 @@
 				<%
 				}
 				%>
+
                 </c:if>
     		</div>
 		</form>
@@ -184,6 +185,7 @@
 		<div id="listcontent">
 		<display:table name="roundresultsList" class="table" defaultsort="1" requestURI="" id="roundresultsList" export="true" pagesize="25" >
 			<display:column property="startorder" sortable="true" titleKey="roundresults.startorder" paramId="sid" paramProperty="sid"/>
+			<display:column property="participants.dorsal" sortable="true" titleKey="participants.dorsal"/>
 			<display:column property="participants.dog.name" sortable="true" titleKey="dogList.heading"/>
             <display:column sortProperty="participants.heat" sortable="true" titleKey="participants.heat">
                 <input type="checkbox" disabled="disabled" <c:if test="${roundresultsList.participants.heat}">checked="checked"</c:if>/>
@@ -242,7 +244,7 @@
     		document.resultsfilterForm.submit();
 		}
 	}
-
+	
 	function startorderMangaTwofunction()
 	{
 		if(window.confirm("&iquest;Seguro que desea establecer el orden de salida para la Manga 2? Recuerde que el orden será inverso a los resultados obtenidos en la primera manga."))
@@ -261,7 +263,7 @@
 	function savetrm()
 	{
 		document.resultsfilterForm.action=document.resultsfilterForm.action+"&savetrm=true";
-		document.resultsfilterForm.submit();
+		document.resultsfilterForm.sub50mit();
 	}
 
     function detailprompt(sid){

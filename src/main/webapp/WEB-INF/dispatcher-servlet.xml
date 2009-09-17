@@ -59,6 +59,18 @@
     </bean>
 
     
+	<!--  ReportOrdersEvent-START -->
+		<!-- Controller -->
+		    <bean id="reportOrdersEventController" class="org.palaciego.cipion.webapp.controller.ReportOrdersEventController">
+		        <property name="settingsManager" ref="settingsManager"/>
+				<property name="eventManager" ref="eventManager"/>
+				<property name="roundresultsManager" ref="roundresultsManager"/>
+				<property name="gradeManager" ref="gradeManager"/>
+				<property name="categoryManager" ref="categoryManager"/>
+				<property name="rangeCalificationManager" ref="rangecalificationManager"/>
+		        <property name="participantsManager" ref="participantsManager"/>
+		    </bean>
+	<!--showreport-END-->
 	<!--  showreport-START -->
 		<!-- Controller -->
 		    <bean id="showReportController" class="org.palaciego.cipion.webapp.controller.ShowReportController">

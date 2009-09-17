@@ -1,6 +1,8 @@
 package org.palaciego.cipion.webapp.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -94,6 +96,7 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
     	String heat=(String)request.getParameter("heat");
     	String delete=(String)request.getParameter("delete");
     	boolean add=Boolean.valueOf((String)request.getParameter("add")).booleanValue();
+    	String dorsal=(String)request.getParameter("dorsal");
 
     	if(delete!=null && delete.length()>0)
     	{
@@ -103,6 +106,22 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
             saveMessage(mv, getText("participants.deleted", locale),SUCCESS_MESSAGES_KEY);
     	}
     		
+
+		//Si queremos establecer los dorsales
+    	if(dorsal!=null && Boolean.valueOf(dorsal).booleanValue())
+    	{
+    		Event e=eventManager.get(Long.valueOf(eventSid));
+    		Iterator<Participants> itPart=e.getParticipantses().iterator();
+    		List<Long> dorsals=shuffleDorsals(e.getParticipantses().size());
+    		int i=0;
+    		while(itPart.hasNext())
+    		{
+    			Participants p=itPart.next();
+    			p.setDorsal(dorsals.get(i));
+    			this.participantsManager.save(p);
+    			i++;
+    		}
+    	}
     	
     	if(add)
     	{
@@ -110,8 +129,8 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
     		List<Participants> l=participantsManager.findHQL(hql);
     		if(l==null || l.size()==0)
     		{
-//        		System.out.println("vamos a añadir un participante");
-        		//añado el participante
+//        		System.out.println("vamos a aï¿½adir un participante");
+        		//aï¿½ado el participante
         		Participants p=new Participants();
         		Dog d=dogManager.get(new Long(dogSid));
         		p.setDog(d);
@@ -125,7 +144,7 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
         		dogSid="";
                 Locale locale = request.getLocale();
                 
-//                //añado los resultados de las rondas
+//                //aï¿½ado los resultados de las rondas
 //                Iterator<Round> itRounds=e.getRounds().iterator();
 //                while(itRounds.hasNext())
 //                {
@@ -165,15 +184,15 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
     		//System.out.println("meto toda la lista de clubs");
     		mv.addObject("listadeclubs",clubManager.getAll("name"));
 
-    		//luego meto los guías del club seleccionado
+    		//luego meto los guï¿½as del club seleccionado
     		if(clubSid!=null && clubSid.length()>0)
     		{
-    			//System.out.println("meto la lista de guías!");
+    			//System.out.println("meto la lista de guï¿½as!");
             	hql="from Guide where club.sid=" + clubSid + " order by firstName";
             	mv.addObject("listadeguias",guideManager.findHQL(hql));
                 mv.addObject("clubName",clubManager.get(new Long(clubSid)).getName());
 
-            	//ahora meto los perros del guía seleccionado
+            	//ahora meto los perros del guï¿½a seleccionado
             	if(guideSid!=null && guideSid.length()>0)
             	{
             		Guide g=guideManager.get(new Long(guideSid));
@@ -205,6 +224,23 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
     	{
             return new ModelAndView().addObject(participantsManager.getAll("dog.guide.club.name"));
     	}
+    }
+
+    /**
+     * FunciÃ³n que baraja los dorsales.
+     * @param size
+     * @return
+     */
+    private List<Long> shuffleDorsals(int size)
+    {
+    	ArrayList<Long> dorsals=new ArrayList<Long>();
+    	for(int i=0;i<size;i++)
+    	{
+    		dorsals.add(new Long(i+1));
+    	}
+
+		Collections.shuffle(dorsals);
+    	return dorsals;
     }
     
     @SuppressWarnings("unchecked")

@@ -75,6 +75,15 @@
     		</div>
 	    	</a>
 		</div>
+		<div class="resultreport">
+			<a target="_blank" href="reportordersevent.html?report=reportordersevent&sid=${param.sid}">
+    		<div id="resultsreport2">
+    		</div>
+    		<div class="resultsreporttext">
+				<fmt:message key="reports.report2"/>
+    		</div>
+	    	</a>
+		</div>
 		
     	<div class="formseparation" >
     	</div>
