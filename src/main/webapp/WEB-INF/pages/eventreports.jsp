@@ -67,11 +67,20 @@
 	
 	<div id="stylized" class="myform" >
 		<div class="resultreport">
-			<a target="_blank" href="showreport.html?report=results&sid=${param.sid}">
+			<a target="_blank" href="showreport.html?report=results&sid=${param.sid}&bycategory=true">
     		<div id="resultsreport1">
     		</div>
     		<div class="resultsreporttext">
 				<fmt:message key="reports.report1"/>
+    		</div>
+	    	</a>
+		</div>
+		<div class="resultreport">
+			<a target="_blank" href="showreport.html?report=results&sid=${param.sid}&bycategory=false">
+    		<div id="resultsreport3">
+    		</div>
+    		<div class="resultsreporttext">
+				<fmt:message key="reports.report3"/>
     		</div>
 	    	</a>
 		</div>

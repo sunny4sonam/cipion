@@ -117,8 +117,11 @@ public class Country extends BaseObject implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null ) return false;
-
+        if (o == null) return false;
+        if (!(o instanceof Country)) {
+            return false;
+        }
+        
         Country pojo = (Country) o;
 
         if (flag != null ? !flag.equals(pojo.flag) : pojo.flag != null) return false;

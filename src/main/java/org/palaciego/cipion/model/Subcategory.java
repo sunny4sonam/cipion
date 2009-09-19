@@ -109,6 +109,9 @@ public class Subcategory extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Subcategory)) {
+            return false;
+        }
 
         Subcategory pojo = (Subcategory) o;
 

@@ -108,6 +108,9 @@ public class Calification extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
+        if (!(o instanceof Calification)) {
+            return false;
+        }
 
         Calification pojo = (Calification) o;
 

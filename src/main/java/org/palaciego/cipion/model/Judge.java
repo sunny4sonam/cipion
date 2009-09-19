@@ -129,6 +129,9 @@ public class Judge extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Judge)) {
+            return false;
+        }
 
         Judge pojo = (Judge) o;
 

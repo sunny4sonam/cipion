@@ -6,21 +6,22 @@
 	<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 		<fo:layout-master-set>
 			<fo:simple-page-master 
-		                  page-height="29.7cm" 
-		                  page-width="21cm"
-		                  margin-top="1cm" 
-		                  margin-bottom="2cm" 
-		                  margin-left="1cm" 
-		                  margin-right="1cm"
+		                  page-height="21cm" 
+		                  page-width="29.7cm"
+		                  margin-top="0.5cm" 
+		                  margin-bottom="0.5cm" 
+		                  margin-left="0.5cm" 
+		                  margin-right="0.5cm"
 		                  master-name="PageMaster">
-		      <fo:region-body margin-top="3cm"/>
-		      <fo:region-before extent="3cm"/>
-		      <fo:region-after extent="1.5cm"/>
+		      <fo:region-body margin-top="0.5cm"/>
+		      <fo:region-before extent="0.5cm"/>
+		      <fo:region-after extent="0.5cm"/>
 		    </fo:simple-page-master>
 		</fo:layout-master-set>
 	
 	  	<fo:page-sequence master-reference="PageMaster">
 			<!-- Logotipo  cipion -->
+			<!-- 
 			<fo:static-content flow-name="xsl-region-before">
 				<fo:block font-size="8pt">
 					<fo:external-graphic 
@@ -30,17 +31,19 @@
                        scaling="uniform" 
 					   src="url('images/cipionreportlogo.png')"/>
 				</fo:block>
-				<fo:block font-size="8pt" top="0cm" left="15cm" position="absolute" text-align="right">
-					<fo:external-graphic
-					      content-width="scale-to-fit"
-	                      width="3cm"
-	                      content-height="100%"
-	                      scaling="uniform" 
-					      src="url({//logoImage})"/>
-				</fo:block>
 			</fo:static-content>
-			
+			 -->
+			<xsl:apply-templates />
+	    </fo:page-sequence>
+	</fo:root>
+</xsl:template>
+<xsl:template match="Datos">
 		    <fo:flow flow-name="xsl-region-body">
+			  <!--  Resultados -->		      
+				<xsl:apply-templates select="//Resultados"/>
+		     </fo:flow>
+</xsl:template>
+<xsl:template match="Resultados">
 			  <!--  Cabecera -->
 			  <fo:block font-size="18pt" 
 		            font-family="sans-serif" 
@@ -48,7 +51,7 @@
 		            space-after.optimum="15pt"
 		            text-align="center"
 		            padding-top="3pt">
-		        Informe Resultados de la Prueba 
+		        FINAL <xsl:value-of select="Grade"/> | <xsl:value-of select="Category"/>
 		      </fo:block>
 		      
 				<fo:table space-before="2em" space-after="2em">
@@ -98,26 +101,9 @@
 					   </fo:table-row>
 					 </fo:table-body>
 				</fo:table>
-		      
-			  <!--  Listado de Participantes -->
-				<xsl:apply-templates select="//Participantes"/>
-
-			  <!--  Resultados -->		      
-				<xsl:apply-templates select="//Resultados"/>
-		     </fo:flow>
-	    </fo:page-sequence>
-	</fo:root>
-</xsl:template>
-<xsl:template match="Resultados">
-		  <!--  Cabecera -->
-		  <fo:block 
-		  		font-size="14pt" 
-	            font-family="sans-serif" 
-	            text-align="center">
-	        ------ Resultados ------ 
-	      </fo:block>
 
 				<!--  Cabecera datos de resultados -->
+				<!-- 
 				<fo:table space-before="2em"  space-after="2em">
 					 <fo:table-column column-width="30mm"/>
 					 <fo:table-column column-width="100mm"/>
@@ -155,38 +141,79 @@
 					   </fo:table-row>
 					 </fo:table-body>
 				</fo:table>	      
-
+				-->
 		<!--  Tabla de Resultados -->
 		<fo:table border-width="0.5pt" border-style="solid" border-color="#888888" start-indent="1em" end-indent="1em"  space-after="2em">
 			<fo:table-column column-width="1cm"/>
-			<fo:table-column column-width="5cm"/>
-			<fo:table-column column-width="5cm"/>
+			<fo:table-column column-width="1cm"/>
 			<fo:table-column column-width="2cm"/>
+			<fo:table-column column-width="4.5cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="2cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="2cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="1.5cm"/>
+			<fo:table-column column-width="3cm"/>
 			<fo:table-column column-width="2cm"/>
 			<fo:table-column column-width="2cm"/>
 				<fo:table-body>
 					<fo:table-row border-color="#888888">
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">P</fo:block>
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Clasif.</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">Guía</fo:block>
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Dorsal</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">Perro</fo:block>
+							<fo:block text-align="center" font-size="10pt" color="black" font-weight="bold">Perro</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">Penal. Recorr.</fo:block>
+							<fo:block text-align="center" font-size="10pt" color="black" font-weight="bold">Guía</fo:block>
+						</fo:table-cell>
+						
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Pen.M1</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">Penal. Tiempo</fo:block>
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Tiem.M1</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
-							<fo:block text-align="center" font-size="12pt" color="black" font-weight="bold">Penal. Total</fo:block>
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Calif.M1</fo:block>
+						</fo:table-cell>
+
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Pen.M2</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Tiem.M2</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Calif.M2</fo:block>
+						</fo:table-cell>
+
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Pen.Final</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Tiem.Final</fo:block>
+						</fo:table-cell>
+
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="10pt" color="black" font-weight="bold">Club</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Lic.</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#EEEEEE">
+							<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold">Categ.</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 				<xsl:for-each select="Resultado">
 					<fo:table-row border-color="#888888">
+					
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
 							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
 								<xsl:value-of select="Position"/>
@@ -194,7 +221,7 @@
 						</fo:table-cell>
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
 							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
-								<xsl:value-of select="Guide"/>
+								<xsl:value-of select="Dorsal"/>
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
@@ -204,23 +231,75 @@
 						</fo:table-cell>
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
 							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
-								<xsl:value-of select="PathFaultPoints"/>
+								<xsl:value-of select="Guide"/>
+							</fo:block>
+						</fo:table-cell>
+						
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="FaultPoints1"/>
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
 							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
-								<xsl:value-of select="TimeFaultPoints"/>
+								<xsl:value-of select="Time1"/>
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="8pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="Calification1"/>
+							</fo:block>
+						</fo:table-cell>
+
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="FaultPoints2"/>
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
 							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
-								<xsl:value-of select="TotalFaultPoints"/>
+								<xsl:value-of select="Time2"/>
 							</fo:block>
 						</fo:table-cell>
-					</fo:table-row>
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="8pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="Calification2"/>
+							</fo:block>
+						</fo:table-cell>
+
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="FaultPoints3"/>
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="Time3"/>
+							</fo:block>
+						</fo:table-cell>
+						
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="8pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="Club"/>
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="10pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="License"/>
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border-style="solid" border-color="#888888" background-color="white" display-align="center">
+							<fo:block font-size="8pt" font-family="sans-serif" text-align="center">
+								<xsl:value-of select="Category"/>
+							</fo:block>
+						</fo:table-cell>
+ 					</fo:table-row>
 				</xsl:for-each>
 				</fo:table-body>
 			</fo:table>
+			<xsl:if test="last='false'">
+					<fo:block break-after='page'/>
+			</xsl:if> 
 </xsl:template>
 <xsl:template match="Participantes">
 		  <!--  Cabecera -->

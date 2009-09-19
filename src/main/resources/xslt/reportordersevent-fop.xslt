@@ -23,20 +23,27 @@
 			<!-- Logotipo  cipion -->
 			<fo:static-content flow-name="xsl-region-before">
 				<fo:block font-size="8pt">
+					<!-- 
 					<fo:external-graphic 
 					   content-width="scale-to-fit"
                        width="3cm"
                        content-height="100%"
                        scaling="uniform" 
 					   src="url('images/cipionreportlogo.png')"/>
-				</fo:block>
-				<fo:block font-size="8pt" top="0cm" left="15cm" position="absolute" text-align="right">
+					   -->
 					<fo:external-graphic
 					      content-width="scale-to-fit"
 	                      width="3cm"
 	                      content-height="100%"
 	                      scaling="uniform" 
-					      src="url({//logoImage})"/>
+						  display-align="after" 
+					      >
+							<xsl:attribute name="src">
+								<xsl:value-of select="//logoImageBasic"/>
+							</xsl:attribute>
+					      </fo:external-graphic>
+						<fo:external-graphic>
+						</fo:external-graphic>
 				</fo:block>
 			</fo:static-content>
 			<xsl:apply-templates />
@@ -45,7 +52,7 @@
 </xsl:template>
 <xsl:template match="Datos">
 		    <fo:flow flow-name="xsl-region-body">
-				<xsl:apply-templates select='division' /> 
+				<xsl:apply-templates select='division' />
 			</fo:flow>
 </xsl:template>
 <xsl:template match="division">
@@ -59,7 +66,7 @@
 					  <xsl:value-of select="grade"/> | <xsl:value-of select="category"/> | Manga <xsl:value-of select="round"/> 
 					</fo:block>
 
-						<fo:table border-width="0.5pt" border-style="solid" border-color="#888888" start-indent="1em" end-indent="1em"  space-after="2em">
+ 						<fo:table border-width="0.5pt" border-style="solid" border-color="#888888" start-indent="1em" end-indent="1em"  space-after="2em">
 							<fo:table-column column-width="1cm"/>
 							<fo:table-column column-width="1cm"/>
 							<fo:table-column column-width="5cm"/>
@@ -90,8 +97,10 @@
 								
 								<xsl:apply-templates select='Participante' /> 
 								</fo:table-body>
-							</fo:table>		
-							<?hard-pagebreak?>
+							</fo:table>
+							<xsl:if test="last='false'">
+		 						<fo:block break-after='page'/>
+							</xsl:if> 
 </xsl:template>
 <xsl:template match="Participante">
 									<fo:table-row border-color="#888888">
@@ -127,8 +136,5 @@
 										</fo:table-cell>
 									</fo:table-row>
 
-</xsl:template>
-<xsl:template match="processing-instruction('hard-pagebreak')">
-   <fo:block break-after='page'/>
 </xsl:template>
 </xsl:stylesheet>

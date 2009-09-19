@@ -215,6 +215,9 @@ public class Round extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
+        if (!(o instanceof Round)) {
+            return false;
+        }
 
         Round pojo = (Round) o;
 

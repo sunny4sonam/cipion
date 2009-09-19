@@ -141,6 +141,9 @@ public class Participants extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
+        if (!(o instanceof Participants)) {
+            return false;
+        }
 
         Participants pojo = (Participants) o;
 

@@ -213,6 +213,9 @@ public class Club extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Club)) {
+            return false;
+        }
 
         Club pojo = (Club) o;
 

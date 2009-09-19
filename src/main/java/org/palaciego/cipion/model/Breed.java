@@ -109,6 +109,9 @@ public class Breed extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Breed)) {
+            return false;
+        }
 
         Breed pojo = (Breed) o;
 

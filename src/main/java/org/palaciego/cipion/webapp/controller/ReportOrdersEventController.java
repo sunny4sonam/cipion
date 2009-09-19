@@ -95,13 +95,20 @@ public class ReportOrdersEventController extends AbstractController{
 		int index=requestUrl.indexOf(servletPath);
 		String baseUrl=requestUrl.substring(0,index);
 		mv.setView(new XslFopView(baseUrl));
-		
+
+		Event e=eventManager.get(Long.valueOf(sid));
+		Settings s=settingsManager.getAll().get(0);
+
 		mv.addObject(XslFopView.XSLT,"/xslt/"+report+"-fop.xslt");
 		BasicMap bm=new BasicMap("Datos");
+		bm.put("logoImage", baseUrl+"/getimage.html?sid="+ s.getSid() +"&manager=settingsManager&pojo=Settings&field=reportlogo");
+		bm.put("logoImageBasic", "url('getimage.html?sid="+ s.getSid() +"&manager=settingsManager&pojo=Settings&field=reportlogo')");
 
 		List<Grade> listGrade=gradeManager.getAll();
 		List<Category> listCategory=categoryManager.getAll();
 		ArrayList<BasicMap> listDivisions=new ArrayList<BasicMap>();
+		BasicMap lastDivision=null;
+
 		for(int i=0;i<listGrade.size();i++)
 		{
 			Grade g=listGrade.get(i);
@@ -136,10 +143,16 @@ public class ReportOrdersEventController extends AbstractController{
 						bmDivision.put("category", c.getName());
 						bmDivision.put("round", round);
 						bmDivision.put("participants", listParticipantes);
+						bmDivision.put("last", "false");
+						lastDivision=bmDivision;
 						listDivisions.add(bmDivision);
 					}
 				}
 			}
+		}
+		if(lastDivision!=null)
+		{
+			lastDivision.put("last", "true");
 		}
 		bm.put("Divisions", listDivisions);
 

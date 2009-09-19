@@ -104,6 +104,9 @@ public class Grade extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Grade)) {
+            return false;
+        }
 
         Grade pojo = (Grade) o;
 

@@ -80,6 +80,7 @@ public class ShowReportController extends AbstractController{
 		
 		String report=request.getParameter("report");
 		String sid=request.getParameter("sid");
+		String byCategory=request.getParameter("bycategory");
 
 		String servletPath=request.getServletPath();
 		String requestUrl=request.getRequestURL().toString();
@@ -98,51 +99,41 @@ public class ShowReportController extends AbstractController{
 		bm.put("Fecha", e.getStartDate() + " - " + e.getEndDate());
 		bm.put("Juez", e.getJudge().getFirstname() + " " + e.getJudge().getLastname());
 
-		BasicMap bmParticipantes=new BasicMap("Participantes");
-		ArrayList<BasicMap> listParticipantes=new ArrayList<BasicMap>();
-		Iterator<Participants> itpart=e.getParticipantses().iterator();
-		while(itpart.hasNext())
-		{
-			Participants p=itpart.next();
-			BasicMap participante=new BasicMap("Participante");
-			Dog d=p.getDog();
-			Guide g=d.getGuide();
-			participante.put("Guide",g.getFirstname() + " " + g.getLastname());
-			participante.put("Dog",d.getName());
-			participante.put("Grade",d.getGrade().getName());
-			participante.put("Category",d.getCategory().getName());
-			participante.put("Club",g.getClub().getName());
-			listParticipantes.add(participante);
-		}
-		bmParticipantes.put("Participantes", listParticipantes);
-		bm.put("Participantes", bmParticipantes);
-
-
 		List<Grade> listGrade=gradeManager.getAll();
 		List<Category> listCategory=categoryManager.getAll();
 		ArrayList<BasicMap> listResults=new ArrayList<BasicMap>();
+		BasicMap lastResults=null;
 		for(int i=0;i<listGrade.size();i++)
 		{
 			Grade g=listGrade.get(i);
-			for(int j=0;j<listCategory.size();j++)
+			if(Boolean.valueOf(byCategory).booleanValue())
 			{
-				Category c=listCategory.get(j);
-				BasicMap bmResults=getResults(sid,"1",g,c);
-				if(bmResults!=null)
+				for(int j=0;j<listCategory.size();j++)
 				{
-					listResults.add(bmResults);
-				}
-				bmResults=getResults(sid,"2",g,c);
-				if(bmResults!=null)
-				{
-					listResults.add(bmResults);
-				}
-				bmResults=getResultsTotal(sid,g,c);
-				if(bmResults!=null)
-				{
-					listResults.add(bmResults);
+					Category c=listCategory.get(j);
+					BasicMap bmResults=getResults(sid,g,c);
+					if(bmResults!=null)
+					{
+						listResults.add(bmResults);
+						lastResults=bmResults;
+						lastResults.put("last", "false");
+					}
 				}
 			}
+			else
+			{
+				BasicMap bmResults=getResults(sid,g,null);
+				if(bmResults!=null)
+				{
+					listResults.add(bmResults);
+					lastResults=bmResults;
+					lastResults.put("last", "false");
+				}
+			}
+		}
+		if(lastResults!=null)
+		{
+			lastResults.put("last", "true");
 		}
 		bm.put("Resultados", listResults);
 		bm.put("sid", ""+s.getSid());
@@ -220,29 +211,17 @@ public class ShowReportController extends AbstractController{
 	}
 
 	/**
-	 * Devuelve el BasicMap con los resultados de una manga
+	 * Función que devuelve una lista de ganadores de un evento, grado y categoría determinados.
+	 * Si categoría es null, entonces de todas las categorías de ese mismo grado.
 	 * @param eventSid
-	 * @param roundSid
 	 * @param g
 	 * @param c
 	 * @return
 	 */
-	private BasicMap getResults(String eventSid, String roundSid, Grade g, Category c)
+	private List<Winner> getWinners(String eventSid, Grade g, Category c,String round)
 	{
-		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
-		String hql="from Roundresults where round.event.sid="+eventSid
-		          +" and round.number="+roundSid
-		          +" and participants.dog.grade.sid="+g.getSid();
-		
-		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
-		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
-		//para dar menos premios! la pasta es la pasta
-		if(Double.valueOf(c.getSid()).doubleValue()>=0)
-		{
-	          hql=hql +" and participants.dog.category.sid="+c.getSid();
-		}
-		
-		List<Roundresults> results=roundresultsManager.findHQL(hql);
+
+		List<Roundresults> results=getResults(eventSid, g, c, round);
 		ResultsManager rm=new ResultsManager(settingsManager,this.rangeCalificationManager);
 
 		List<Winner> winners=rm.orderResults(results);
@@ -250,29 +229,140 @@ public class ShowReportController extends AbstractController{
 		{
 			return null;
 		}
+		return winners;
+	}
+
+	/**
+	 * Devuelve la lista de resultados {@link Roundresults} de un evento en un grado, categoría y ronda determinada
+	 * @param eventSid
+	 * @param g
+	 * @param c
+	 * @param round
+	 * @return
+	 */
+	private List<Roundresults> getResults(String eventSid, Grade g, Category c, String round)
+	{
+		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
+		String hql="from Roundresults where round.event.sid="+eventSid
+          +" and round.number="+round
+          +" and participants.dog.grade.sid="+g.getSid();
+          
+		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
+		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
+		//para dar menos premios! la pasta es la pasta
+		if(c!=null)
+		{
+	          hql=hql +" and participants.dog.category.sid="+c.getSid();
+		}
+
+		List<Roundresults> results1=roundresultsManager.findHQL(hql);
+		return results1;
+	}
+	
+	/**
+	 * Función que devuelve una lista de ganadores de un evento, grado y categoría determinados.
+	 * Si categoría es null, entonces de todas las categorías de ese mismo grado.
+	 * @param eventSid
+	 * @param g
+	 * @param c
+	 * @return
+	 */
+	private List<Winner> getFinalWinners(String eventSid, Grade g, Category c)
+	{
+		List<Roundresults> results1=getResults(eventSid,g,c,"1");
+		List<Roundresults> results2=getResults(eventSid,g,c,"2");
+		
+		ResultsManager rm=new ResultsManager(settingsManager,this.rangeCalificationManager);
+		
+		List<Winner> results=rm.orderResults(results1,results2);
+		return results;
+	}
+
+	/**
+	 * Devuelve el BasicMap con los resultados de una manga
+	 * @param eventSid
+	 * @param roundSid
+	 * @param g
+	 * @param c
+	 * @return
+	 */
+	private BasicMap getResults(String eventSid, Grade g, Category c)
+	{
+		List<Winner> winnersRound1=getWinners(eventSid, g, c,"1");
+		List<Winner> winnersRound2=getWinners(eventSid, g, c,"2");
+		List<Winner> winnersFinal=getFinalWinners(eventSid, g, c);
 		
 		BasicMap bmResultados=new BasicMap("Resultados");
-		bmResultados.put("Round", roundSid);
 		bmResultados.put("Grade", g.getName());
-		bmResultados.put("Category", c.getName());
-		ArrayList<BasicMap> alresultados=new ArrayList<BasicMap>();
-		for(int i=0;i<winners.size();i++)
+		if(c!=null)
 		{
-			Winner w=winners.get(i);
+			bmResultados.put("Category", c.getName());
+		}
+		else
+		{
+			bmResultados.put("Category", "");
+		}
+		
+		ArrayList<BasicMap> alresultados=new ArrayList<BasicMap>();
+		for(int i=0;i<winnersFinal.size();i++)
+		{
+			Winner w=winnersFinal.get(i);
 			BasicMap bmWinner=new BasicMap("Resultado");
 			bmWinner.put("Position", ""+(i+1));
+			bmWinner.put("Dorsal", ""+w.participants.getDorsal() );
 			bmWinner.put("Dog", w.participants.getDog().getName());
 			bmWinner.put("Guide", w.participants.getDog().getGuide().getFirstname() + " " + w.participants.getDog().getGuide().getLastname());
-			bmWinner.put("PathFaultPoints", w.pathFaultPoints);
-			bmWinner.put("TimeFaultPoints", w.timeFaultPoints);
-			bmWinner.put("TotalFaultPoints", w.getTotalFault());
+			
+			Winner w1=getWinnerFromList(winnersRound1, w.participants);
+			bmWinner.put("FaultPoints1", ""+w1.getTotalFault());
+			bmWinner.put("Time1", ""+w1.results.getTime());
+			bmWinner.put("Calification1", w1.Calification.getName());
+			
+			Winner w2=getWinnerFromList(winnersRound2, w.participants);
+			bmWinner.put("FaultPoints2", ""+w2.getTotalFault());
+			bmWinner.put("Time2", ""+w2.results.getTime());
+			bmWinner.put("Calification2", w2.Calification.getName());
+
+			bmWinner.put("FaultPoints3", ""+w.getTotalFault());
+			bmWinner.put("Time3", ""+(w1.results.getTime()+w2.results.getTime()));
+
+			bmWinner.put("Club", w.participants.getDog().getGuide().getClub().getName());
+			bmWinner.put("License", w.participants.getDog().getLicense());
+			bmWinner.put("Category", w.participants.getDog().getCategory().getName());
+
 			alresultados.add(bmWinner);
 		}
 		
-		bmResultados.put("Resultados",alresultados);
+		if(alresultados.size()>0)
+		{
+			bmResultados.put("Resultados",alresultados);
+			
+			return bmResultados;
+		}
+		else
+		{
+			return null;
+		}
 		
-		return bmResultados;
-		
+	}
+
+	/**
+	 * Devuelve los datos de winner de un determinado participante.
+	 * @param list lista de ganadores
+	 * @param p participante
+	 * @return el ganador
+	 */
+	private Winner getWinnerFromList(List<Winner> list,Participants p)
+	{
+		for(int i=0;i<list.size();i++)
+		{
+			Winner w=list.get(i);
+			if(w.participants.getSid().equals(p.getSid()))
+			{
+				return w;
+			}
+		}
+		return null;
 	}
 
 }

@@ -109,6 +109,9 @@ public class Category extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Category)) {
+            return false;
+        }
 
         Category pojo = (Category) o;
 

@@ -164,6 +164,9 @@ public class Guide extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Guide)) {
+            return false;
+        }
 
         Guide pojo = (Guide) o;
 

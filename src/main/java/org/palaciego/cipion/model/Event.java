@@ -273,6 +273,9 @@ public class Event extends BaseObject implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null ) return false;
+        if (!(o instanceof Event)) {
+            return false;
+        }
 
         Event pojo = (Event) o;
 
