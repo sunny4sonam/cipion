@@ -184,8 +184,8 @@
     
     		<display:table name="club.guides" class="table" defaultsort="1" requestURI="" id="guideList" export="true" pagesize="25" >
                 <display:column href="guideform.html?edit=false" paramId="sid" paramProperty="sid" property="firstname" sortable="true" titleKey="guide.firstname"/>
-                <display:column property="idnumber" sortable="true" titleKey="guide.idnumber"/>
                 <display:column property="lastname" sortable="true" titleKey="guide.lastname"/>
+                <display:column property="idnumber" sortable="true" titleKey="guide.idnumber"/>
     	
             	<display:setProperty name="paging.banner.item_name"><fmt:message key="guideList.guide"/></display:setProperty>
                 <display:setProperty name="paging.banner.items_name"><fmt:message key="guideList.guides"/></display:setProperty>

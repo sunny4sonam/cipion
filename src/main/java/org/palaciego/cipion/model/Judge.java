@@ -122,7 +122,7 @@ public class Judge extends BaseObject implements Serializable {
 	*/
 	@Transient
 	public Object getFormLabelField() {
-		return getFirstname() + "," + getLastname();
+		return getFirstname() + " " + getLastname();
 	}
 
     @Override
