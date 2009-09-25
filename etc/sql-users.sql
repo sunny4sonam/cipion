@@ -1,0 +1,6 @@
+insert into PUBLIC.APP_USER (ID, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, ADDRESS, CITY, COUNTRY, POSTAL_CODE, PROVINCE, CREDENTIALS_EXPIRED, EMAIL, ACCOUNT_ENABLED, FIRST_NAME, LAST_NAME, PASSWORD, PASSWORD_HINT, PHONE_NUMBER, USERNAME, VERSION, WEBSITE) values (-1, 'false', 'false', '', 'Denver', 'US', '80210', 'CO', 'false', 'matt_raible@yahoo.com', 'true', 'Tomcat', 'User', '12dea96fec20593566ab75692c9949596833adc9', 'A male kitty.', '', 'user', 1, 'http://tomcat.apache.org');
+insert into PUBLIC.APP_USER (ID, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, ADDRESS, CITY, COUNTRY, POSTAL_CODE, PROVINCE, CREDENTIALS_EXPIRED, EMAIL, ACCOUNT_ENABLED, FIRST_NAME, LAST_NAME, PASSWORD, PASSWORD_HINT, PHONE_NUMBER, USERNAME, VERSION, WEBSITE) values (-2, 'false', 'false', '', 'Denver', 'US', '80210', 'CO', 'false', 'matt@raibledesigns.com', 'true', 'Matt', 'Raible', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Not a female kitty.', '', 'admin', 1, 'http://raibledesigns.com');
+insert into PUBLIC.ROLE (ID, DESCRIPTION, NAME) values (-1, 'Administrator role (can edit Users)', 'ROLE_ADMIN');
+insert into PUBLIC.ROLE (ID, DESCRIPTION, NAME) values (-2, 'Default role for all Users', 'ROLE_USER');
+insert into PUBLIC.USER_ROLE (USER_ID, ROLE_ID) values (-1, -2);
+insert into PUBLIC.USER_ROLE (USER_ID, ROLE_ID) values (-2, -1);
