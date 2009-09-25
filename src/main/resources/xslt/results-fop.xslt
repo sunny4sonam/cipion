@@ -21,18 +21,46 @@
 	
 	  	<fo:page-sequence master-reference="PageMaster">
 			<!-- Logotipo  cipion -->
-			<!-- 
 			<fo:static-content flow-name="xsl-region-before">
 				<fo:block font-size="8pt">
-					<fo:external-graphic 
-					   content-width="scale-to-fit"
-                       width="3cm"
-                       content-height="100%"
-                       scaling="uniform" 
-					   src="url('images/cipionreportlogo.png')"/>
+					<fo:table border-width="0pt" border-style="solid" start-indent="0em" end-indent="0em"  space-after="0em">
+						<fo:table-column column-width="3cm"/>
+						<fo:table-column column-width="22cm"/>
+						<fo:table-column column-width="3cm"/>
+							<fo:table-body>
+								<fo:table-row border-color="#888888">
+									<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#FFFFFF">
+										<fo:block text-align="left" font-size="8pt" color="black" font-weight="bold">
+										<!--  
+											<fo:external-graphic 
+											   content-width="scale-to-fit"
+						                       width="3cm"
+						                       content-height="100%"
+						                       scaling="uniform" 
+											   src="url('images/cipionreportlogo.png')"/>
+										-->
+										</fo:block>
+									</fo:table-cell>
+									<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#FFFFFF">
+										<fo:block text-align="center" font-size="8pt" color="black" font-weight="bold"> 
+										</fo:block>
+									</fo:table-cell>
+									<fo:table-cell border-width="0.5pt" border-color="#888888" border-style="flat" background-color="#FFFFFF">
+										<fo:block text-align="right" font-size="8pt" color="black" font-weight="bold">
+											<fo:external-graphic
+											      content-width="scale-to-fit"
+							                      width="3cm"
+							                      content-height="100%"
+							                      scaling="uniform" 
+												  display-align="after" 
+												  src="url('images/logoreport.jpg')"/>
+										</fo:block>
+									</fo:table-cell>
+								</fo:table-row>
+							</fo:table-body>
+						</fo:table>
 				</fo:block>
 			</fo:static-content>
-			 -->
 			<xsl:apply-templates />
 	    </fo:page-sequence>
 	</fo:root>
