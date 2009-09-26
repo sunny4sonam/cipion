@@ -159,11 +159,11 @@
                 <form:input path="pointspenaltyreuse" id="pointspenaltyreuse" cssClass="text medium" cssErrorClass="text medium error" maxlength="255" readonly="${param.edit=='false'}"/>
             </li>
             <li>
-                <form:errors path="pointspenaltysecond" cssClass="fieldError"/>
-                <label><fmt:message key="settings.pointspenaltysecond"/>
-					<span class="small"><fmt:message key="settings.pointspenaltysecond.detail"/></span>
+                <form:errors path="pointspenaltyeliminated" cssClass="fieldError"/>
+                <label><fmt:message key="settings.pointspenaltyeliminated"/>
+					<span class="small"><fmt:message key="settings.pointspenaltyeliminated.detail"/></span>
                 </label>
-                <form:input path="pointspenaltysecond" id="pointspenaltysecond" cssClass="text medium" cssErrorClass="text medium error" maxlength="255" readonly="${param.edit=='false'}"/>
+                <form:input path="pointspenaltyeliminated" id="pointspenaltyeliminated" cssClass="text medium" cssErrorClass="text medium error" maxlength="255" readonly="${param.edit=='false'}"/>
             </li>
         </ul>
 	</div>

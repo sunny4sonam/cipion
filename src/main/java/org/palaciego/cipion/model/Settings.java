@@ -27,7 +27,7 @@ public class Settings extends BaseObject implements Serializable {
     private Long pointspenaltyfoul;
     private Long pointspenaltymaxreuses;
     private Long pointspenaltyreuse;
-    private Long pointspenaltysecond;
+    private Long pointspenaltyeliminated;
     private byte[] reportlogo;
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)     @Column(name="sid", unique=true, nullable=false)    
@@ -111,13 +111,13 @@ public class Settings extends BaseObject implements Serializable {
         this.pointspenaltyreuse = pointspenaltyreuse;
     }
     
-    @Column(name="pointspenaltysecond", nullable=false)
-    public Long getPointspenaltysecond() {
-        return this.pointspenaltysecond;
+    @Column(name="pointspenaltyeliminated", nullable=false)
+    public Long getPointspenaltyeliminated() {
+        return this.pointspenaltyeliminated;
     }
     
-    public void setPointspenaltysecond(Long pointspenaltysecond) {
-        this.pointspenaltysecond = pointspenaltysecond;
+    public void setPointspenaltyeliminated(Long pointspenaltyeliminated) {
+        this.pointspenaltyeliminated = pointspenaltyeliminated;
     }
 
     @Column(name="reportlogo",length=16777215)
@@ -186,7 +186,7 @@ public class Settings extends BaseObject implements Serializable {
         if (pointspenaltyfoul != null ? !pointspenaltyfoul.equals(pojo.pointspenaltyfoul) : pojo.pointspenaltyfoul != null) return false;
         if (pointspenaltymaxreuses != null ? !pointspenaltymaxreuses.equals(pojo.pointspenaltymaxreuses) : pojo.pointspenaltymaxreuses != null) return false;
         if (pointspenaltyreuse != null ? !pointspenaltyreuse.equals(pojo.pointspenaltyreuse) : pojo.pointspenaltyreuse != null) return false;
-        if (pointspenaltysecond != null ? !pointspenaltysecond.equals(pojo.pointspenaltysecond) : pojo.pointspenaltysecond != null) return false;
+        if (pointspenaltyeliminated != null ? !pointspenaltyeliminated.equals(pojo.pointspenaltyeliminated) : pojo.pointspenaltyeliminated != null) return false;
 
         return true;
     }
@@ -201,7 +201,7 @@ public class Settings extends BaseObject implements Serializable {
 	        result = 31 * result + (pointspenaltyfoul != null ? pointspenaltyfoul.hashCode() : 0);
 	        result = 31 * result + (pointspenaltymaxreuses != null ? pointspenaltymaxreuses.hashCode() : 0);
 	        result = 31 * result + (pointspenaltyreuse != null ? pointspenaltyreuse.hashCode() : 0);
-	        result = 31 * result + (pointspenaltysecond != null ? pointspenaltysecond.hashCode() : 0);
+	        result = 31 * result + (pointspenaltyeliminated != null ? pointspenaltyeliminated.hashCode() : 0);
 
         return result;
     }
@@ -218,7 +218,7 @@ public class Settings extends BaseObject implements Serializable {
         sb.append("pointspenaltyfoul").append("='").append(getPointspenaltyfoul()).append("', ");
         sb.append("pointspenaltymaxreuses").append("='").append(getPointspenaltymaxreuses()).append("', ");
         sb.append("pointspenaltyreuse").append("='").append(getPointspenaltyreuse()).append("', ");
-        sb.append("pointspenaltysecond").append("='").append(getPointspenaltysecond()).append("'");
+        sb.append("pointspenaltysecond").append("='").append(getPointspenaltyeliminated()).append("'");
         sb.append("]");
       
         return sb.toString();

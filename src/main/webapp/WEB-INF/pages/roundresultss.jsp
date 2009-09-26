@@ -263,7 +263,7 @@
 	function savetrm()
 	{
 		document.resultsfilterForm.action=document.resultsfilterForm.action+"&savetrm=true";
-		document.resultsfilterForm.sub50mit();
+		document.resultsfilterForm.submit();
 	}
 
     function detailprompt(sid){

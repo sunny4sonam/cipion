@@ -114,14 +114,16 @@ public class SettingsFormController extends BaseFormController {
     		{
     			s.setClub(null);
     		}    		
-    		s.setMaxreuses(new Long(3));
-    		s.setPointspenaltyabsent(new Long(100));
-    		s.setPointspenaltymaxreuses(new Long(100));
     		
     		s.setPointspenaltyfoul(new Long(5));
     		s.setPointspenaltyreuse(new Long(5));
     		
-    		s.setPointspenaltysecond(new Long(100));
+    		s.setMaxreuses(new Long(3));
+    		s.setPointspenaltyeliminated(new Long(920));
+    		s.setPointspenaltyabsent(new Long(950));
+
+    		s.setPointspenaltymaxreuses(new Long(100));
+
     		settingsManager.save(s);
     	}
     	

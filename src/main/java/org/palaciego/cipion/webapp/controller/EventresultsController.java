@@ -170,7 +170,7 @@ public class EventresultsController implements Controller, ApplicationContextAwa
         		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
         		String hql="from Roundresults where round.event.sid="+eventSid
         		          +" and round.number="+roundSid
-        		          +" and participants.dog.grade.sid="+gradeSid;
+        		          +" and round.grade.sid=" + gradeSid;
         		
         		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
         		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
@@ -194,7 +194,7 @@ public class EventresultsController implements Controller, ApplicationContextAwa
         		//ahora muestro los participantes ordenados por resultado obtenido en la prueba
         		String hql="from Roundresults where round.event.sid="+eventSid
 		          +" and round.number=1"
-		          +" and participants.dog.grade.sid="+gradeSid;
+		          +" and round.grade.sid=" + gradeSid;
 		          
 	        		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
 	        		//si es menor que cero es que el usuario quiere ver TODAS las categoráis
@@ -207,7 +207,7 @@ public class EventresultsController implements Controller, ApplicationContextAwa
         		List<Roundresults> results1=roundresultsManager.findHQL(hql);
         		hql="from Roundresults where round.event.sid="+eventSid
 		          +" and round.number=2"
-		          +" and participants.dog.grade.sid="+gradeSid;
+		          +" and round.grade.sid="+gradeSid;
         		
         		//si el valor del sid de la categoría es positivo, entonces, de una sóla categoría
         		//si es menor que cero es que el usuario quiere ver TODAS las categoráis

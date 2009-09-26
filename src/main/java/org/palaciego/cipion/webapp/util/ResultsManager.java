@@ -8,10 +8,10 @@ import org.palaciego.cipion.model.Calification;
 import org.palaciego.cipion.model.Dog;
 import org.palaciego.cipion.model.Guide;
 import org.palaciego.cipion.model.Rangecalification;
-import org.palaciego.cipion.model.Role;
 import org.palaciego.cipion.model.Roundresults;
 import org.palaciego.cipion.model.Settings;
 import org.palaciego.cipion.service.GenericManager;
+import org.palaciego.cipion.util.CipionUtil;
 
 /**
  * Clase encargada de calcular los resultados
@@ -98,14 +98,21 @@ public class ResultsManager
     		w.Calification=getCalification(w, true);
     		if(rr.isAbsent() || rr.isEliminated())
     		{
-    			w.pathFaultPoints=100;
+    			if(rr.isAbsent())
+    			{
+    				w.pathFaultPoints=CipionUtil.redondear(settings.getPointspenaltyabsent(),2);
+    			}
+    			else
+    			{
+    				w.pathFaultPoints=CipionUtil.redondear(settings.getPointspenaltyeliminated(),2);
+    			}
     		}
     		else
     		{
-        		w.pathFaultPoints=(rr.getFouls()*settings.getPointspenaltyfoul()) + (rr.getReuses()*settings.getPointspenaltyreuse());
+        		w.pathFaultPoints=CipionUtil.redondear((rr.getFouls()*settings.getPointspenaltyfoul()) + (rr.getReuses()*settings.getPointspenaltyreuse()),2);
         		if(rr.getTime()>rr.getRound().getTrs())
         		{
-        			w.timeFaultPoints=rr.getTime()-rr.getRound().getTrs();
+        			w.timeFaultPoints=CipionUtil.redondear(rr.getTime()-rr.getRound().getTrs(),2);
         		}
         		else
         		{
@@ -164,6 +171,8 @@ public class ResultsManager
     		w3.participants=w1.participants;
     		w3.pathFaultPoints=w1.pathFaultPoints+w2.pathFaultPoints;
     		w3.timeFaultPoints=w1.timeFaultPoints+w2.timeFaultPoints;
+    		w3.results=w1.results;
+    		w3.results2=w2.results;
     		w3.Calification=getCalification(w3, false);
     		list3.add(w3);
     	}
