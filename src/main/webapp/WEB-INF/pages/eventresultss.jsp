@@ -151,6 +151,14 @@
                         </select>			
                     </li>
                 </ul>
+                
+				<div class="roundresultsreport">
+					<a target="_blank" href="showreport.html?report=results&sid=${param.sid}&round=${roundSid}&category=${categorySid}&grade=${gradeSid}">
+						<div id="showorderroundreport" title="Informe de Resultados">
+		               </div>
+		    			<div class="resultsreporttext">Resultados</div>
+			    	</a>
+		    	</div>
     		</div>
 		</form>
 	</div>

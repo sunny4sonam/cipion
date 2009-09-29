@@ -183,7 +183,6 @@
 		    			<div class="resultsreporttext">Orden Salida</div>
 			    	</a>
 		    	</div>
-				
 
                 </c:if>
     		</div>

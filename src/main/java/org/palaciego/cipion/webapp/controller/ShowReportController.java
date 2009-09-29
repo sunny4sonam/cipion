@@ -78,6 +78,9 @@ public class ShowReportController extends AbstractController{
 		String report=request.getParameter("report");
 		String sid=request.getParameter("sid");
 		String byCategory=request.getParameter("bycategory");
+		String round=request.getParameter("round");
+		String grade=request.getParameter("grade");
+		String category=request.getParameter("category");
 
 		String servletPath=request.getServletPath();
 		String requestUrl=request.getRequestURL().toString();
@@ -96,14 +99,40 @@ public class ShowReportController extends AbstractController{
 		bm.put("Fecha", e.getStartDate() + " - " + e.getEndDate());
 		bm.put("Juez", e.getJudge().getFirstname() + " " + e.getJudge().getLastname());
 
-		List<Grade> listGrade=gradeManager.getAll();
-		List<Category> listCategory=categoryManager.getAll();
+		List<Grade> listGrade=null;
+		if(grade!=null)
+		{
+			listGrade=new ArrayList<Grade>();
+			listGrade.add(gradeManager.get(Long.valueOf(grade)));
+		}
+		else
+		{
+			listGrade=gradeManager.getAll();
+		}
+		List<Category> listCategory=null;
+		if(category!=null)
+		{
+			if(category!=null && Long.valueOf(category)>0)
+			{
+				listCategory=new ArrayList<Category>();
+				listCategory.add(categoryManager.get(Long.valueOf(category)));
+			}
+			else if(category!=null && Long.valueOf(category)<0)
+			{
+				byCategory="false";
+				listCategory=categoryManager.getAll();			
+			}
+		}
+		else
+		{
+			listCategory=categoryManager.getAll();			
+		}
 		ArrayList<BasicMap> listResults=new ArrayList<BasicMap>();
 		BasicMap lastResults=null;
 		for(int i=0;i<listGrade.size();i++)
 		{
 			Grade g=listGrade.get(i);
-			if(Boolean.valueOf(byCategory).booleanValue())
+			if(byCategory==null || Boolean.valueOf(byCategory).booleanValue())
 			{
 				for(int j=0;j<listCategory.size();j++)
 				{

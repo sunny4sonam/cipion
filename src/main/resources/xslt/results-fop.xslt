@@ -79,7 +79,7 @@
 		            space-after.optimum="15pt"
 		            text-align="center"
 		            padding-top="3pt">
-		        FINAL <xsl:value-of select="Grade"/>  <xsl:value-of select="Category"/>
+		        FINAL <xsl:value-of select="Grade"/>&#x20;<xsl:value-of select="Category"/>
 		      </fo:block>
 		      
 				<fo:table space-before="2em" space-after="2em">
