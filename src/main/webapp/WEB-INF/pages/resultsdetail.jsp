@@ -29,6 +29,10 @@
                 <p><fmt:message key="resultdetail.head.detail"/></p>
                 <ul class="formFields">
                     <li>
+                    	<h2><fmt:message key="resultdetail.dorsal"/> ${dorsal} - ${dog}</h2>
+                    	<h3>${guide}</h3>
+                    </li>
+                    <li>
                          <label><fmt:message key="resultdetail.eliminated"/>
                              <span class="small"><fmt:message key="resultdetail.eliminated.detail"/></span>
                          </label>
@@ -67,12 +71,6 @@
                             <span class="small"><fmt:message key="resultdetail.time.detail"/></span>
                         </label>				
         				<form:input path="time" id="time" cssErrorClass="text medium error" maxlength="150"/>
-                    </li>
-                    <li>
-                        <label><fmt:message key="resultdetail.result"/>
-                            <span class="small"><fmt:message key="resultdetail.result.detail"/></span>
-                        </label>				
-        				<form:input path="result" id="result" cssErrorClass="text medium error" maxlength="150"/>
                     </li>
                 </ul>
     

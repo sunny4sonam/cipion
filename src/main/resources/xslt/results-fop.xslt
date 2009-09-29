@@ -79,7 +79,7 @@
 		            space-after.optimum="15pt"
 		            text-align="center"
 		            padding-top="3pt">
-		        FINAL <xsl:value-of select="Grade"/> | <xsl:value-of select="Category"/>
+		        FINAL <xsl:value-of select="Grade"/>  <xsl:value-of select="Category"/>
 		      </fo:block>
 		      
 				<fo:table space-before="2em" space-after="2em">
@@ -123,7 +123,7 @@
 					     </fo:table-cell>
 					     <fo:table-cell padding-start="3mm">
 					     	<fo:block text-align="left">
-					             <fo:block padding-start="3mm" padding-end="3mm">ValorPrueba2</fo:block>
+					             <fo:block padding-start="3mm" padding-end="3mm"><xsl:value-of select="//Juez"/></fo:block>
 				             </fo:block>
 					     </fo:table-cell>
 					   </fo:table-row>

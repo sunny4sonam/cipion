@@ -1,24 +1,19 @@
 package org.palaciego.cipion.webapp.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.palaciego.cipion.model.Category;
-import org.palaciego.cipion.model.Dog;
 import org.palaciego.cipion.model.Event;
 import org.palaciego.cipion.model.Grade;
-import org.palaciego.cipion.model.Guide;
 import org.palaciego.cipion.model.Participants;
 import org.palaciego.cipion.model.Rangecalification;
 import org.palaciego.cipion.model.Roundresults;
 import org.palaciego.cipion.model.Settings;
 import org.palaciego.cipion.service.GenericManager;
-import org.palaciego.cipion.webapp.util.ResultsManager;
-import org.palaciego.cipion.webapp.util.Winner;
 import org.palaciego.cipion.webapp.view.BasicMap;
 import org.palaciego.cipion.webapp.view.XslFopView;
 import org.springframework.web.servlet.ModelAndView;
@@ -89,6 +84,9 @@ public class ReportOrdersEventController extends AbstractController{
 		
 		String report=request.getParameter("report");
 		String sid=request.getParameter("sid");
+		String round=request.getParameter("round");
+		String grade=request.getParameter("grade");
+		String category=request.getParameter("category");
 
 		String servletPath=request.getServletPath();
 		String requestUrl=request.getRequestURL().toString();
@@ -104,8 +102,27 @@ public class ReportOrdersEventController extends AbstractController{
 		bm.put("logoImage", baseUrl+"/getimage.html?sid="+ s.getSid() +"&manager=settingsManager&pojo=Settings&field=reportlogo");
 		bm.put("logoImageBasic", "url('getimage.html?sid="+ s.getSid() +"&manager=settingsManager&pojo=Settings&field=reportlogo')");
 
-		List<Grade> listGrade=gradeManager.getAll();
-		List<Category> listCategory=categoryManager.getAll();
+		List<Grade> listGrade=null;
+		if(grade!=null)
+		{
+			listGrade=new ArrayList<Grade>();
+			listGrade.add(gradeManager.get(Long.valueOf(grade)));
+		}
+		else
+		{
+			listGrade=gradeManager.getAll();
+		}
+		List<Category> listCategory;
+		if(category!=null)
+		{
+			listCategory=new ArrayList<Category>();
+			listCategory.add(categoryManager.get(Long.valueOf(category)));
+		}
+		else
+		{
+			listCategory=categoryManager.getAll();			
+		}
+		
 		ArrayList<BasicMap> listDivisions=new ArrayList<BasicMap>();
 		BasicMap lastDivision=null;
 
@@ -114,8 +131,6 @@ public class ReportOrdersEventController extends AbstractController{
 			Grade g=listGrade.get(i);
 			for(int j=0;j<listCategory.size();j++)
 			{
-				for(int round=1;round<3;round++)
-				{
 					Category c=listCategory.get(j);
 					String hql="from Roundresults where participants.dog.category.sid=" +c.getSid()
 						  +" and round.number="+round
@@ -147,7 +162,6 @@ public class ReportOrdersEventController extends AbstractController{
 						lastDivision=bmDivision;
 						listDivisions.add(bmDivision);
 					}
-				}
 			}
 		}
 		if(lastDivision!=null)

@@ -1,17 +1,14 @@
 package org.palaciego.cipion.webapp.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.palaciego.cipion.model.Category;
-import org.palaciego.cipion.model.Dog;
 import org.palaciego.cipion.model.Event;
 import org.palaciego.cipion.model.Grade;
-import org.palaciego.cipion.model.Guide;
 import org.palaciego.cipion.model.Participants;
 import org.palaciego.cipion.model.Rangecalification;
 import org.palaciego.cipion.model.Roundresults;

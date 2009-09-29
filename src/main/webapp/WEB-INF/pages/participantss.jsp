@@ -133,7 +133,7 @@
 										sdefault="selected";
 									}
         							%>
-        						<option value="<%=d.getSid()%>" <%=sdefault%>><%=d.getName()%></option>
+        						<option value="<%=d.getSid()%>" <%=sdefault%>><%=d.getName()+" | " + d.getCategory().getName() + " | " + d.getGrade().getName()%></option>
         					<%}}%>
                         </select>			
                     </li>
@@ -161,7 +161,9 @@
 			<display:column property="dog.name" sortable="true" titleKey="dogList.heading" paramId="sid" paramProperty="sid"/>
 			<display:column property="dog.guide.formLabelField" sortable="true" titleKey="guideList.heading"/>
 			<display:column property="dog.guide.club.name" sortable="true" titleKey="clubList.heading"/>
-            <display:column sortProperty="heat" sortable="true" titleKey="participants.heat">
+			<display:column property="dog.grade.name" sortable="true" titleKey="dog.grade"/>
+			<display:column property="dog.category.name" sortable="true" titleKey="dog.category"/>
+            <display:column sortProperty="heat" sortable="true" titleKey="participants.heat" media="html">
                 <input type="checkbox" disabled="disabled" <c:if test="${participantsList.heat}">checked="checked"</c:if>/>
             </display:column>
 			<display:column titleKey="button.delete" media="html" href="#">

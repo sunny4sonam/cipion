@@ -1,7 +1,5 @@
 package org.palaciego.cipion.webapp.controller;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +36,7 @@ public class ResultsdetailController implements Controller
 //        	while(en.hasMoreElements())
 //        	{
 //        		String name=en.nextElement();
-//        		System.out.println("Parámetro:" + name + ", value:"+request.getParameter(name));
+//        		System.out.println("Parï¿½metro:" + name + ", value:"+request.getParameter(name));
 //        	}
         	
         	String absent=(String)request.getParameter("absent");
@@ -76,6 +74,9 @@ public class ResultsdetailController implements Controller
     	Roundresults rr=this.roundresultsManager.get(new Long(rrSid));
     	
     	mv.addObject(rr);
+		mv.addObject("dorsal",""+rr.getParticipants().getDorsal());
+		mv.addObject("dog",""+rr.getParticipants().getDog().getName());
+		mv.addObject("guide",""+rr.getParticipants().getDog().getGuide().getFirstname() + " " + rr.getParticipants().getDog().getGuide().getLastname());
     	
 		return mv;
 	}

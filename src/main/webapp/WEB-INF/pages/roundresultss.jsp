@@ -176,6 +176,14 @@
 				<%
 				}
 				%>
+				<div class="roundresultsreport">
+					<a target="_blank" href="reportordersevent.html?report=reportordersevent&sid=${param.sid}&round=${roundSid}&category=${categorySid}&grade=${gradeSid}">
+						<div id="showorderroundreport" title="Informe de Orden de Salida">
+		               </div>
+		    			<div class="resultsreporttext">Orden Salida</div>
+			    	</a>
+		    	</div>
+				
 
                 </c:if>
     		</div>

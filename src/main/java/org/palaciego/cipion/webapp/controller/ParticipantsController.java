@@ -2,7 +2,6 @@ package org.palaciego.cipion.webapp.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -110,22 +109,33 @@ public class ParticipantsController implements Controller, ApplicationContextAwa
 		//Si queremos establecer los dorsales
     	if(dorsal!=null && Boolean.valueOf(dorsal).booleanValue())
     	{
-    		Event e=eventManager.get(Long.valueOf(eventSid));
-    		Iterator<Participants> itPart=e.getParticipantses().iterator();
-    		List<Long> dorsals=shuffleDorsals(e.getParticipantses().size());
-    		int i=0;
-    		while(itPart.hasNext())
+    		//Se establecen los dorsales ordenados por club
+    		String hql="from Participants where event.sid=" + eventSid
+    		         + " order by dog.guide.club.sid";
+    		List<Participants> l=participantsManager.findHQL(hql);
+    		for(int i=0;i<l.size();i++)
     		{
-    			Participants p=itPart.next();
-    			p.setDorsal(dorsals.get(i));
-    			this.participantsManager.save(p);
-    			i++;
+    			Participants p=l.get(i);
+    			p.setDorsal(new Long(i+1));
     		}
+
+//    		Event e=eventManager.get(Long.valueOf(eventSid));
+//    		Iterator<Participants> itPart=e.getParticipantses().iterator();
+//    		List<Long> dorsals=shuffleDorsals(e.getParticipantses().size());
+//    		int i=0;
+//    		while(itPart.hasNext())
+//    		{
+//    			Participants p=itPart.next();
+//    			p.setDorsal(dorsals.get(i));
+//    			this.participantsManager.save(p);
+//    			i++;
+//    		}
     	}
     	
     	if(add)
     	{
-    		String hql="from Participants where dog.sid=" + dogSid;
+    		String hql="from Participants where dog.sid=" + dogSid 
+    		          +" and event.sid="+eventSid;
     		List<Participants> l=participantsManager.findHQL(hql);
     		if(l==null || l.size()==0)
     		{
